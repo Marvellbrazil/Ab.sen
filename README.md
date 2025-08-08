@@ -160,4 +160,4 @@ xdg-open http://localhost:8000/docs
 Aplikasi ini dirilis di bawah lisensi **MIT License**. Silakan lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
 
 ---
-<h1 align="center">Happy Coding! :D 🎉</h1>
+<p align="center">Happy Coding! :D 🎉</p>

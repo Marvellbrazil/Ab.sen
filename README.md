@@ -1,4 +1,9 @@
 <p align="center">
+  <img src="assets/banner.png" alt="Ab.sen Banner">
+</p>
+
+
+<p align="center">
   <a href="#" target="_blank">
     <img src="public/logo.png" width="400" alt="Ab.sen Logo">
   </a>
@@ -51,20 +56,28 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
   <img src="public/assets/dfd.png" alt="DFD Ab.sen">
 </p>
 
+---
+
 ### Flowchart User
 <p align="center">
   <img src="public/assets/flowchart_user.png" alt="Flowchart User">
 </p>
+
+---
 
 ### Flowchart Admin
 <p align="center">
   <img src="public/assets/flowchart_admin.png" alt="Flowchart Admin">
 </p>
 
+---
+
 ### Flowchart Login
 <p align="center">
   <img src="public/assets/flowchart_login.png" alt="Flowchart Login">
 </p>
+
+---
 
 ### ERD (Entity Relationship Diagram)
 <p align="center">
@@ -103,3 +116,15 @@ php artisan migrate --seed
 
 # Jalankan server
 php artisan serve
+
+---
+
+### 📲 Hubungi Saya
+<p align="center">
+  <a href="https://instagram.com/username_ig" target="_blank">
+    <img src="https://img.shields.io/badge/Instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white" />
+  </a>
+  <a href="https://linkedin.com/in/username_linkedin" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+</p>

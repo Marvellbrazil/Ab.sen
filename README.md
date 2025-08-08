@@ -144,12 +144,20 @@ xdg-open http://localhost:8000/docs
 ### 📲 Hubungi Saya
 <p align="left">
   <a href="https://www.instagram.com/akufaisal._/" target="_blank">
-    <img src="https://img.shields.io/badge/Instagram-Visit%20Profile-E4405F?logo=instagram&logoColor=white&labelColor=E4405F&color=808080" alt="Instagram">
+    <img src="https://img.shields.io/badge/Instagram-Visit%20Profile-E4405F?logo=instagram&logoColor=white&labelColor=E4405F&color=808080&labelTextColor=white&colorText=E4405F" alt="Instagram">
   </a>
   <a href="https://www.linkedin.com/in/marvello-faisal-912132318/" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-Connect%20Profile-0A66C2?logo=linkedin&logoColor=white&labelColor=0A66C2&color=808080" alt="LinkedIn">
+    <img src="https://img.shields.io/badge/LinkedIn-Connect%20Profile-0A66C2?logo=linkedin&logoColor=white&labelColor=0A66C2&color=808080&labelTextColor=white&colorText=0A66C2" alt="LinkedIn">
   </a>
   <a href="https://wa.me/6287776810645" target="_blank">
-    <img src="https://img.shields.io/badge/WhatsApp-Chat%20Now-25D366?logo=whatsapp&logoColor=white&labelColor=25D366&color=808080" alt="WhatsApp">
+    <img src="https://img.shields.io/badge/WhatsApp-Chat%20Now-25D366?logo=whatsapp&logoColor=white&labelColor=25D366&color=808080&labelTextColor=white&colorText=25D366" alt="WhatsApp">
   </a>
 </p>
+
+---
+
+## 📄 Lisensi
+Aplikasi ini dirilis di bawah lisensi **MIT License**. Silakan lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
+
+---
+<h1 align="center">Happy Coding! :D 🎉</h1>

@@ -114,8 +114,28 @@ php artisan key:generate
 # Konfigurasi database di file .env
 php artisan migrate --seed
 
+# Jalankan Vite + Laravel Mix untuk frontend
+npm run build
+npm run dev
+
 # Jalankan server
 php artisan serve
+
+```
+
+## 📚 Dokumentasi
+```bash
+# Windows
+start http://localhost:8000/docs
+
+# MacOS
+open http://localhost:8000/docs
+
+# Linux
+xdg-open http://localhost:8000/docs
+
+# Ganti 8000 dengan port yang sesuai jika berbeda
+# Jika menggunakan port lain, sesuaikan URL di atas.
 
 ```
 
@@ -124,9 +144,9 @@ php artisan serve
 ### 📲 Hubungi Saya
 <p align="center">
   <a href="https://www.instagram.com/akufaisal._/" target="_blank">
-    <img src="https://img.shields.io/badge/Instagram-%23E4405F?logo=instagram&logoColor=white" alt="Instagram">
+    <img src="https://img.shields.io/badge/Instagram-Visit%20Profile-E4405F?logo=instagram&logoColor=white&labelColor=E4405F&color=808080" alt="Instagram">
   </a>
   <a href="https://www.linkedin.com/in/marvello-faisal-912132318/" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-%230077B5?logo=linkedin&logoColor=white" alt="LinkedIn">
+    <img src="https://img.shields.io/badge/LinkedIn-Connect%20Profile-0A66C2?logo=linkedin&logoColor=white&labelColor=0A66C2&color=808080" alt="LinkedIn">
   </a>
 </p>

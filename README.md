@@ -10,10 +10,10 @@
 </p>
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Laravel-11.x-red?logo=laravel" alt="Laravel"></a>
-  <a href="#"><img src="https://img.shields.io/badge/PHP-8.x-blue?logo=php" alt="PHP"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap" alt="Bootstrap"></a>
-  <a href="#"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
+  <a href="https://laravel.com/"><img src="https://img.shields.io/badge/Laravel-11.x-red?logo=laravel" alt="Laravel"></a>
+  <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.x-blue?logo=php" alt="PHP"></a>
+  <a href="https://getbootstrap.com/"><img src="https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap" alt="Bootstrap"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
 </p>
 
 <h2 align="center">📌 Ab.sen — Aplikasi Presensi Online Berbasis Website</h2>
@@ -157,7 +157,7 @@ xdg-open http://localhost:8000/docs
 ---
 
 ## 📄 Lisensi
-Aplikasi ini dirilis di bawah lisensi **MIT License**. Silakan lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
+Aplikasi ini dirilis di bawah lisensi **MIT License**. Silakan lihat file <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a> untuk informasi lebih lanjut.
 
 ---
 <p align="center">Happy Coding! :D 🎉</p>

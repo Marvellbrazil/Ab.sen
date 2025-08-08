@@ -48,27 +48,27 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 
 ### DFD Level 0
 <p align="center">
-  <img src="Untitled Diagram.drawio (1).png" alt="DFD Ab.sen">
+  <img src="public/assets/dfd.png" alt="DFD Ab.sen">
 </p>
 
 ### Flowchart User
 <p align="center">
-  <img src="flowchart_user.drawio.png" alt="Flowchart User">
+  <img src="public/assets/flowchart_user.png" alt="Flowchart User">
 </p>
 
 ### Flowchart Admin
 <p align="center">
-  <img src="flowchart_admin.drawio.png" alt="Flowchart Admin">
+  <img src="public/assets/flowchart_admin.png" alt="Flowchart Admin">
 </p>
 
 ### Flowchart Login
 <p align="center">
-  <img src="flowchart_login.png" alt="Flowchart Login">
+  <img src="public/assets/flowchart_login.png" alt="Flowchart Login">
 </p>
 
 ### ERD (Entity Relationship Diagram)
 <p align="center">
-  <img src="erd_(1).png" alt="ERD Ab.sen">
+  <img src="public/assets/erd.png" alt="ERD Ab.sen">
 </p>
 
 ---

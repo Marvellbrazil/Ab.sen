@@ -71,7 +71,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 
 ---
 
-## 🔒 Flowchart Login
+## 🔒 Flowchart Login User
 <p align="center">
   <img src="public/assets/flowchart_login.png" alt="Flowchart Login">
 </p>

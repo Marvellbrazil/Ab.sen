@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="#" target="_blank">
-    <img src="public/logo.png" width="400" alt="Ab.sen Logo">
+    <img src="public/assets/ab.sen_g-t.png" width="400" alt="Ab.sen Logo">
   </a>
 </p>
 

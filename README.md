@@ -50,35 +50,35 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 
 ## 📊 Diagram Sistem
 
-### DFD Level 0
+## 🔀 DFD Level 0
 <p align="center">
   <img src="public/assets/dfd.png" alt="DFD Ab.sen">
 </p>
 
 ---
 
-### Flowchart User
+## 👤 Flowchart User
 <p align="center">
   <img src="public/assets/flowchart_user.png" alt="Flowchart User">
 </p>
 
 ---
 
-### Flowchart Admin
+## 🔑 Flowchart Admin
 <p align="center">
   <img src="public/assets/flowchart_admin.png" alt="Flowchart Admin">
 </p>
 
 ---
 
-### Flowchart Login
+## 🔒 Flowchart Login
 <p align="center">
   <img src="public/assets/flowchart_login.png" alt="Flowchart Login">
 </p>
 
 ---
 
-### ERD (Entity Relationship Diagram)
+## 🌐 ERD (Entity Relationship Diagram)
 <p align="center">
   <img src="public/assets/erd.png" alt="ERD Ab.sen">
 </p>
@@ -124,14 +124,17 @@ php artisan serve
 
 ## 📚 Dokumentasi
 ```bash
+# Jalankan server lokal dahulu
+php artisan serve
+
 # Windows
-start http://localhost:8000/docs
+start http://127.0.0.1:8000/docs
 
 # MacOS
-open http://localhost:8000/docs
+open http://127.0.0.1:8000/docs
 
 # Linux
-xdg-open http://localhost:8000/docs
+xdg-open http://127.0.0.1:8000/docs
 
 # Ganti 8000 dengan port yang sesuai jika berbeda
 # Jika menggunakan port lain, sesuaikan URL di atas.

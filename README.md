@@ -1,7 +1,6 @@
-<p align="center">
+<!--<p align="center">
   <img src="assets/banner.png" alt="Ab.sen Banner">
-</p>
-
+</p>-->
 
 <p align="center">
   <a href="#" target="_blank">

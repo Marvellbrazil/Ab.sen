@@ -160,4 +160,4 @@ xdg-open http://localhost:8000/docs
 Aplikasi ini dirilis di bawah lisensi **MIT License**. Silakan lihat file <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a> untuk informasi lebih lanjut.
 
 ---
-<p align="center">Happy Coding! :D 🎉</p>
+<p align="center" style="font-size: 60px;">Happy Coding! :D 🎉</p>

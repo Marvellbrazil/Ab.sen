@@ -1,17 +1,16 @@
-<p align="center">
+<!--<p align="center">
   <img src="assets/banner.png" alt="Ab.sen Banner">
-</p>
-
+</p>-->
 
 <p align="center">
   <a href="#" target="_blank">
-    <img src="public/logo.png" width="400" alt="Ab.sen Logo">
+    <img src="public/assets/ab.sen_g-t.png" width="400" alt="Ab.sen Logo">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://laravel.com/"><img src="https://img.shields.io/badge/Laravel-11.x-red?logo=laravel" alt="Laravel"></a>
-  <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.x-blue?logo=php" alt="PHP"></a>
+  <a href="https://laravel.com/"><img src="https://img.shields.io/badge/Laravel-12.21.0-red?logo=laravel" alt="Laravel"></a>
+  <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.2.12-blue?logo=php" alt="PHP"></a>
   <a href="https://getbootstrap.com/"><img src="https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap" alt="Bootstrap"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
 </p>
@@ -51,35 +50,35 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 
 ## 📊 Diagram Sistem
 
-### DFD Level 0
+## 🔀 DFD Level 0
 <p align="center">
   <img src="public/assets/dfd.png" alt="DFD Ab.sen">
 </p>
 
 ---
 
-### Flowchart User
+## 👤 Flowchart User
 <p align="center">
   <img src="public/assets/flowchart_user.png" alt="Flowchart User">
 </p>
 
 ---
 
-### Flowchart Admin
+## 🔑 Flowchart Admin
 <p align="center">
   <img src="public/assets/flowchart_admin.png" alt="Flowchart Admin">
 </p>
 
 ---
 
-### Flowchart Login
+## 🔒 Flowchart Login User
 <p align="center">
   <img src="public/assets/flowchart_login.png" alt="Flowchart Login">
 </p>
 
 ---
 
-### ERD (Entity Relationship Diagram)
+## 🌐 ERD (Entity Relationship Diagram)
 <p align="center">
   <img src="public/assets/erd.png" alt="ERD Ab.sen">
 </p>
@@ -125,14 +124,17 @@ php artisan serve
 
 ## 📚 Dokumentasi
 ```bash
+# Jalankan server lokal dahulu
+php artisan serve
+
 # Windows
-start http://localhost:8000/docs
+start http://127.0.0.1:8000/docs
 
 # MacOS
-open http://localhost:8000/docs
+open http://127.0.0.1:8000/docs
 
 # Linux
-xdg-open http://localhost:8000/docs
+xdg-open http://127.0.0.1:8000/docs
 
 # Ganti 8000 dengan port yang sesuai jika berbeda
 # Jika menggunakan port lain, sesuaikan URL di atas.

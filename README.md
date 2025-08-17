@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://laravel.com/"><img src="https://img.shields.io/badge/Laravel-11.x-red?logo=laravel" alt="Laravel"></a>
-  <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.x-blue?logo=php" alt="PHP"></a>
+  <a href="https://laravel.com/"><img src="https://img.shields.io/badge/Laravel-12.21.0-red?logo=laravel" alt="Laravel"></a>
+  <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-8.2.12-blue?logo=php" alt="PHP"></a>
   <a href="https://getbootstrap.com/"><img src="https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap" alt="Bootstrap"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
 </p>

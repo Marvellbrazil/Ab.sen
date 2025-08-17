@@ -24,12 +24,14 @@
 ---
 
 ## 📖 Tentang Ab.sen
+
 **Ab.sen** adalah aplikasi presensi online berbasis **PHP, Laravel, dan Bootstrap** yang dilengkapi dengan **verifikasi foto wajah dan perekaman video minimal tiga detik** untuk memastikan keaslian data kehadiran.  
 Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusat, Ab.sen memudahkan proses absensi di instansi, sekolah, atau perusahaan **kapan saja dan di mana saja**.
 
 ---
 
 ## ✨ Fitur Utama
+
 - 📸 **Verifikasi Wajah** dengan unggah foto & video minimal 3 detik.  
 - 🌐 **Akses Web** dari perangkat apa saja yang terhubung internet.  
 - 📊 **Laporan Kehadiran** otomatis & riwayat presensi.  
@@ -40,6 +42,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ---
 
 ## 🛠️ Teknologi yang Digunakan
+
 - **Backend:** PHP 8.x, Laravel 11.x  
 - **Frontend:** Bootstrap 5, Blade Templating  
 - **Database:** MySQL / MariaDB  
@@ -51,6 +54,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ## 📊 Diagram Sistem
 
 ## 🔀 DFD Level 0
+
 <p align="center">
   <img src="public/assets/dfd.png" alt="DFD Ab.sen">
 </p>
@@ -58,6 +62,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ---
 
 ## 👤 Flowchart User
+
 <p align="center">
   <img src="public/assets/flowchart_user.png" alt="Flowchart User">
 </p>
@@ -65,6 +70,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ---
 
 ## 🔑 Flowchart Admin
+
 <p align="center">
   <img src="public/assets/flowchart_admin.png" alt="Flowchart Admin">
 </p>
@@ -72,6 +78,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ---
 
 ## 🔒 Flowchart Login User
+
 <p align="center">
   <img src="public/assets/flowchart_login.png" alt="Flowchart Login">
 </p>
@@ -79,13 +86,15 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ---
 
 ## 🌐 ERD (Entity Relationship Diagram)
+
 <p align="center">
   <img src="public/assets/erd.png" alt="ERD Ab.sen">
 </p>
 
 ---
 
-## 📂 Struktur Database (Ringkas)
+## 📂 Struktur Database (Sederhana)
+
 | Tabel | Deskripsi |
 |-------|-----------|
 | **Admin** | Kelola sistem & data kelas |
@@ -97,6 +106,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ---
 
 ## 🚀 Instalasi
+
 ```bash
 # Clone repository
 git clone https://github.com/Marvellbrazil/Ab.sen.git
@@ -123,6 +133,7 @@ php artisan serve
 ```
 
 ## 📚 Dokumentasi
+
 ```bash
 # Jalankan server lokal dahulu
 php artisan serve
@@ -144,6 +155,7 @@ xdg-open http://127.0.0.1:8000/docs
 ---
 
 ### 📲 Hubungi Saya
+
 <p align="left">
   <a href="https://www.instagram.com/akufaisal._/" target="_blank">
     <img src="https://img.shields.io/badge/Instagram-Visit%20Profile-E4405F?logo=instagram&logoColor=white&labelColor=E4405F&color=808080&labelTextColor=white&colorText=E4405F" alt="Instagram">
@@ -159,6 +171,7 @@ xdg-open http://127.0.0.1:8000/docs
 ---
 
 ## 📄 Lisensi
+
 Aplikasi ini dirilis di bawah lisensi **MIT License**. Silakan lihat file <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a> untuk informasi lebih lanjut.
 
 ---

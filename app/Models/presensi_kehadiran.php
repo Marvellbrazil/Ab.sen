@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class presensi_kehadiran extends Model
+class Presensi_kehadiran extends Model
 {
     //
 }

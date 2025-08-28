@@ -1,8 +1,56 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckLogin;
+use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\AdminAuthController;
+
 
 // Authentication Routes
-Route::get('/login', [App\Http\Controllers\AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
-Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
+
+// USER routes
+Route::get('/login', [UserAuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [UserAuthController::class, 'login'])->name('login.post');
+
+// ADMIN routes
+Route::get('/admin', [AdminAuthController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin', [AdminAuthController::class, 'login'])->name('admin.login.post');
+
+
+// Routes
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
+});
+
+Route::get('/dashboard', function () {
+    return view('home');
+})->name('dashboard');
+
+// Validation Routes
+
+
+
+// Protected Routes
+Route::middleware([CheckLogin::class])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('home');
+    });
+});
+
+// If you have an admin login form, you can handle it like this:
+// If (Auth::guard('admin')->attempt($credentials)) {
+//     return redirect()->intended('/dashboard');
+// }
+// If (Auth::guard('admin')->attempt([
+//     'email' => $request->email,
+//     'password' => $request->password,
+// ])) {
+//     // ✅ Password matches the bcrypt hash in DB
+//     return redirect()->intended('/admin/dashboard');
+// } else {
+//     // ❌ Password does not match
+//     return back()->withErrors(['email' => 'Invalid admin credentials']);
+// }

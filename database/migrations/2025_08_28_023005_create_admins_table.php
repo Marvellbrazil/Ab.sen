@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('admin', function (Blueprint $table) {
             $table->id('id_admin')->primary()->autoIncrement()->unique();
-            $table->string('username', 50);
+            $table->string('username', 50)->unique();
             $table->string('password', 100);
         });
     }

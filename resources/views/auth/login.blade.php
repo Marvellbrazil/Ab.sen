@@ -205,12 +205,12 @@
 </head>
 
 <body>
-    @if (session('succeess'))
+    @if (session('success'))
         <script>
             alert("{{ session('success') }}");
         </script>
     @endif
-    
+
     @if(session('error'))
         <script>
             alert("{{ session('error') }}");
@@ -224,15 +224,15 @@
                 <h2 class="fw-semibold login-title">Login</h2>
                 <hr>
             </div>
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login.post') }}">
                 @csrf
                 <div class="form-group">
-                    <input type="text" id="username" class="form-control shadow-sm" placeholder=" " required
+                    <input type="text" id="username" name="username" class="form-control shadow-sm" placeholder=" " required
                         autocomplete="off">
                     <label for="username" class="form-label">Username</label>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" class="form-control shadow-sm" placeholder=" " required>
+                    <input type="password" id="password" name="password" class="form-control shadow-sm" placeholder=" " required>
                     <label for="password" class="form-label">Password</label>
                     <span class="toggle-password" onclick="togglePassword()">
                         <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"

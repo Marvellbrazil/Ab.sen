@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserAuthController extends Controller
 {
@@ -14,13 +16,14 @@ class UserAuthController extends Controller
 
     public function login(Request $request)
     {
-        $creds = $request->only('username', 'password');
+    $user = User::where('username', $request->username)->first();
 
-        if (Auth::guard('web')->attempt($creds)) {
-            return redirect('/dashboard')->with('success', 'Login successful!');
-        } else {
-            return back()->with('error', 'Invalid username or password.');
-        }
+    if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+        Auth::login($user);
+        return redirect('/dashboard')->with('success', 'Manual login successful.');
+    } else {
+        return back()->with('error', 'Manual check failed.');
+    }
     }
 
     public function logout()

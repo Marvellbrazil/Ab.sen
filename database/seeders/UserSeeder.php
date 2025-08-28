@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,14 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'username' => 'user',
-            'password' => bcrypt('user1234'),
+            'password' => Hash::make('user1234'),
         ]);
     }
+
+
+use WithoutModelEvents;
+// public function setPasswordAttribute($value)
+// {
+//     $this->attributes['password'] = Hash::make($value);
+// }
 }

@@ -4,6 +4,7 @@ use App\Http\Middleware\CheckLogin;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
 
+const dbor = '/dashboard';
 
 // Authentication Routes
 
@@ -20,14 +21,14 @@ Route::post('/admin', [AdminAuthController::class, 'login'])->name('admin.login.
 // Routes
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect()->route('dashboard');
+        return redirect(dbor);
     }
     return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
     return view('home');
-})->name('dashboard');
+});
 
 // Validation Routes
 

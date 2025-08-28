@@ -2,13 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', function() {
-    return view('home');
-});
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Authentication Routes
+Route::get('/login', [App\Http\Controllers\AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');

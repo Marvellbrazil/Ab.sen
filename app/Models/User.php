@@ -10,7 +10,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    public $timestamps = false;
     use HasFactory, Notifiable;
     protected $table = 'users';
     protected $primaryKey = 'id_user';
@@ -23,5 +22,8 @@ class User extends Authenticatable
         'id_user',
         'raw_password',
         'password',
+        'created_at',
+        'updated_at',
+        'last_login',
     ];
 }

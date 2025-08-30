@@ -23,7 +23,7 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $password = fake()->password();
+        $password = fake()->password(5, 12);
         return [
             'name' => fake()->name(),
             'username' => fake()->unique()->username(),

@@ -3,8 +3,8 @@
 use App\Http\Middleware\CheckLogin;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
-
-const dbor = '/dashboard';
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 // Authentication Routes
 
@@ -21,13 +21,13 @@ Route::post('/admin', [AdminAuthController::class, 'login'])->name('admin.login.
 // Routes
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect(dbor);
+        return redirect('/dashboard');
     }
     return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {
-    return view('home');
+    return view('layouts.home');
 });
 
 // Validation Routes
@@ -37,8 +37,8 @@ Route::get('/dashboard', function () {
 // Protected Routes
 Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/dashboard', function () {
-        return view('home');
-    });
+        return view('layouts.home');
+    })->name('dashboard');
 });
 
 // If you have an admin login form, you can handle it like this:
@@ -55,3 +55,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 //     // ❌ Password does not match
 //     return back()->withErrors(['email' => 'Invalid admin credentials']);
 // }
+Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+// Note: Ensure you have the necessary views and controllers created for these routes to function properly.

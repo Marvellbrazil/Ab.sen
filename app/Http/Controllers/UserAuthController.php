@@ -16,13 +16,12 @@ class UserAuthController extends Controller
 
     public function login(Request $request)
     {
-    $user = User::where('username', $request->username)->first();
+    $creds = $request->only('username', 'password');
 
-    if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-        Auth::login($user);
-        return redirect('/dashboard')->with('success', 'Manual login successful.');
+    if (Auth::attempt($creds)) {
+        return redirect('/dashboard')->with('success', 'Welcome back, ' . Auth::user()->name . '!');
     } else {
-        return back()->with('error', 'Manual check failed.');
+        return back()->with('error', 'Invalid Username or Password.');
     }
     }
 

@@ -15,15 +15,19 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
+            'name' => 'Miglahovic',
             'username' => 'user',
             'password' => Hash::make('user1234'),
         ]);
     }
-
-
-use WithoutModelEvents;
-// public function setPasswordAttribute($value)
-// {
-//     $this->attributes['password'] = Hash::make($value);
-// }
 }
+    // --- IGNORE ---
+    // --- IGNORE ---
+    // use WithoutModelEvents; --- IGNORE ---
+    // public function setPasswordAttribute($value) --- IGNORE ---
+    // { --- IGNORE ---
+    //     $this->attributes['password'] = Hash::make($value); --- IGNORE ---
+    // } --- IGNORE ---
+// --- IGNORE ---
+// --- IGNORE ---
+// ---

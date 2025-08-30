@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="shortcut icon" href="assets/ab.sen_g_bordrad.png" type="image/x-icon">
+    <link rel="shortcut icon" href="@yield('favicon', 'assets/ab.sen_g_bordrad.png')" type="image/x-icon">
     <style>
     body {
         min-height: 100vh;
@@ -205,12 +205,6 @@
 </head>
 
 <body>
-    @if (session('success'))
-        <script>
-            alert("{{ session('success') }}");
-        </script>
-    @endif
-
     @if(session('error'))
         <script>
             alert("{{ session('error') }}");
@@ -223,6 +217,8 @@
                 <img src="assets/ab.sen_g_trans.png" class="logo-glow mb-3" alt="logo">
                 <h2 class="fw-semibold login-title">Login</h2>
                 <hr>
+
+
             </div>
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf

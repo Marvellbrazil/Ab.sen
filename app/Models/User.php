@@ -10,15 +10,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public $timestamps = false;
     use HasFactory, Notifiable;
     protected $table = 'users';
     protected $primaryKey = 'id_user';
     protected $fillable = [
+        'name',
         'username',
         'password',
     ];
     protected $hidden = [
         'id_user',
+        'raw_password',
         'password',
     ];
 }

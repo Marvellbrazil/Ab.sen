@@ -142,6 +142,36 @@
         text-decoration: underline;
     }
 
+    /* Popup Notification */
+    .popup-notification {
+        position: fixed;
+        top: 30px;
+        left: 50%;
+        min-width: 250px;
+        padding: 16px 20px;
+        background: #fff;
+        color: #FF2800; /* rgba(255, 0, 0, 0.85) */
+        font-weight: 500;
+        font-family: 'Montserrat Alternates', sans-serif;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 25px rgba(200, 12, 12, 0.25);
+        backdrop-filter: blur(10px) saturate(120%);
+        -webkit-backdrop-filter: blur(10px) saturate(120%);
+        opacity: 0;
+        transform: translate(-50%, 1000px);
+        pointer-events: none;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        z-index: 9999;
+    }
+
+    .popup-notification.show {
+        opacity: 1;
+        transform: translate(-50%, 950px);
+        pointer-events: auto;
+    }
+
+
     @media (max-width: 1024px) {
         body {
             padding: 1rem;
@@ -201,36 +231,36 @@
             eyeSlash.style.display = "none";
         }
     }
+
+    // Example: call when password is wrong
+    // showPopup("Invalid password!");
     </script>
 </head>
 
 <body>
-    @if(session('error'))
-        <script>
-            alert("{{ session('error') }}");
-        </script>
-    @endif
-
     <div class="main-wrapper">
+        <div id="popup" class="popup-notification"></div>
+
         <div class="login-card">
             <div class="text-center mb-4">
                 <img src="assets/ab.sen_g_trans.png" class="logo-glow mb-3" alt="logo">
                 <h2 class="fw-semibold login-title">Login</h2>
                 <hr>
-
-
             </div>
+
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
                 <div class="form-group">
-                    <input type="text" id="username" name="username" class="form-control shadow-sm" placeholder=" " required
-                        autocomplete="off">
+                    <input type="text" id="username" name="username" class="form-control shadow-sm" placeholder=" "
+                        required autocomplete="off">
                     <label for="username" class="form-label">Username</label>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" name="password" class="form-control shadow-sm" placeholder=" " required>
+                    <input type="password" id="password" name="password" class="form-control shadow-sm" placeholder=" "
+                        required>
                     <label for="password" class="form-label">Password</label>
                     <span class="toggle-password" onclick="togglePassword()">
+                        <!-- eye icons -->
                         <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
                             viewBox="0 0 16 16">
                             <path
@@ -259,6 +289,57 @@
                 alt="Decoration">
         </div>
     </div>
+
+    <script>
+    function togglePassword() {
+        const input = document.getElementById("password");
+        const eyeOpen = document.getElementById("eyeOpen");
+        const eyeSlash = document.getElementById("eyeSlash");
+
+        if (input.type === "password") {
+            input.type = "text";
+            eyeOpen.style.display = "none";
+            eyeSlash.style.display = "inline";
+        } else {
+            input.type = "password";
+            eyeOpen.style.display = "inline";
+            eyeSlash.style.display = "none";
+        }
+    }
+
+    function showPopup(message, iconUrl = null) {
+        if (!message) return;
+        const popup = document.getElementById("popup");
+
+        // isi popup: icon + text
+        popup.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px;">
+            ${iconUrl ? `<img src="${iconUrl}" alt="icon" style="width:20px; height:20px;">` : ""}
+            <span>${message}</span>
+        </div>
+    `;
+
+        // reset dulu biar transisi smooth setiap kali
+        popup.classList.remove("show");
+        void popup.offsetWidth; // 🔑 paksa reflow
+
+        // tampilkan popup
+        popup.classList.add("show");
+
+        // otomatis hilang setelah 3 detik
+        setTimeout(() => {
+            popup.classList.remove("show");
+        }, 3000);
+    }
+
+    // Jalankan setelah DOM ready
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(session('error'))
+        showPopup("{{ session('error') }}", "assets/cross.png");
+        @endif
+    });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

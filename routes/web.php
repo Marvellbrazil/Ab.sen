@@ -55,7 +55,7 @@ Route::middleware([CheckLogin::class])->group(function () {
 //     // ❌ Password does not match
 //     return back()->withErrors(['email' => 'Invalid admin credentials']);
 // }
-Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [UserAuthController::class, 'logout'])->name('logout');
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 // Note: Ensure you have the necessary views and controllers created for these routes to function properly.

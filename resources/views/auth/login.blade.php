@@ -148,11 +148,14 @@
         top: 30px;
         left: 50%;
         min-width: 250px;
-        padding: 16px 20px;
+        padding: 16px 24px;
         background: #fff;
-        color: #FF2800; /* rgba(255, 0, 0, 0.85) */
+        color: #FF2800;
+        /* rgba(255, 0, 0, 0.85) */
         font-weight: 500;
         font-family: 'Montserrat Alternates', sans-serif;
+        font-size: 17px;
+        text-align: center;
         border-radius: 12px;
         border: 1px solid rgba(0, 0, 0, 0.5);
         box-shadow: 0 4px 25px rgba(200, 12, 12, 0.25);
@@ -167,8 +170,28 @@
 
     .popup-notification.show {
         opacity: 1;
-        transform: translate(-50%, 950px);
+        transform: translate(-50%, 940px);
         pointer-events: auto;
+    }
+
+    .progress-bar {
+        position: relative;
+        width: 112%;
+        height: 2.75px;
+        background: rgba(0, 0, 0, 0.09);
+        border-radius: 2px;
+        padding: 0;
+        margin: 16px 0 -16px -19px;
+        overflow: hidden;
+    }
+
+    .progress-bar span {
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: rgba(255, 0, 0, 0.85);
+        border-radius: 2px;
+        transition: width 3s linear;
     }
 
 
@@ -232,8 +255,59 @@
         }
     }
 
-    // Example: call when password is wrong
-    // showPopup("Invalid password!");
+    function togglePassword() {
+        const input = document.getElementById("password");
+        const eyeOpen = document.getElementById("eyeOpen");
+        const eyeSlash = document.getElementById("eyeSlash");
+
+        if (input.type === "password") {
+            input.type = "text";
+            eyeOpen.style.display = "none";
+            eyeSlash.style.display = "inline";
+        } else {
+            input.type = "password";
+            eyeOpen.style.display = "inline";
+            eyeSlash.style.display = "none";
+        }
+    }
+
+    function showPopup(message, iconUrl = null) {
+        if (!message) return;
+        const popup = document.getElementById("popup");
+
+        // isi popup: icon + text
+        popup.innerHTML = `
+        <div style="display:flex; align-items:center; gap:12px;">
+            ${iconUrl ? `<img src="${iconUrl}" alt="icon" style="width:30px; height:30px;">` : ""}
+            <span>${message}</span>
+        </div>
+        <div class="progress-bar">
+            <span></span>
+        </div>
+    `;
+
+        // reset dulu biar transisi smooth setiap kali
+        popup.classList.remove("show");
+        void popup.offsetWidth; // 🔑 paksa reflow
+
+        // tampilkan popup
+        popup.classList.add("show");
+
+        const bar = popup.querySelector('.progress-bar span');
+        bar.style.width = "0%";
+
+        // otomatis hilang setelah 3 detik
+        setTimeout(() => {
+            popup.classList.remove("show");
+        }, 3000);
+    }
+
+    // Jalankan setelah DOM ready
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(session('error'))
+        showPopup("{{ session('error') }}", "assets/cross.png");
+        @endif
+    });
     </script>
 </head>
 
@@ -289,56 +363,6 @@
                 alt="Decoration">
         </div>
     </div>
-
-    <script>
-    function togglePassword() {
-        const input = document.getElementById("password");
-        const eyeOpen = document.getElementById("eyeOpen");
-        const eyeSlash = document.getElementById("eyeSlash");
-
-        if (input.type === "password") {
-            input.type = "text";
-            eyeOpen.style.display = "none";
-            eyeSlash.style.display = "inline";
-        } else {
-            input.type = "password";
-            eyeOpen.style.display = "inline";
-            eyeSlash.style.display = "none";
-        }
-    }
-
-    function showPopup(message, iconUrl = null) {
-        if (!message) return;
-        const popup = document.getElementById("popup");
-
-        // isi popup: icon + text
-        popup.innerHTML = `
-        <div style="display:flex; align-items:center; gap:8px;">
-            ${iconUrl ? `<img src="${iconUrl}" alt="icon" style="width:20px; height:20px;">` : ""}
-            <span>${message}</span>
-        </div>
-    `;
-
-        // reset dulu biar transisi smooth setiap kali
-        popup.classList.remove("show");
-        void popup.offsetWidth; // 🔑 paksa reflow
-
-        // tampilkan popup
-        popup.classList.add("show");
-
-        // otomatis hilang setelah 3 detik
-        setTimeout(() => {
-            popup.classList.remove("show");
-        }, 3000);
-    }
-
-    // Jalankan setelah DOM ready
-    document.addEventListener("DOMContentLoaded", function() {
-        @if(session('error'))
-        showPopup("{{ session('error') }}", "assets/cross.png");
-        @endif
-    });
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

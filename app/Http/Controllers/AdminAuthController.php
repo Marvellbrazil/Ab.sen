@@ -12,12 +12,12 @@ class AdminAuthController extends Controller
 {
     public function showLogin()
     {
-        return view('auth.login');
+        return view('auth.admin.login');
     }
 
     public function showRegister()
     {
-        return view('auth.user.register');
+        return view('auth.admin.register');
     }
 
     public function login(Request $request)
@@ -28,7 +28,7 @@ class AdminAuthController extends Controller
             $user = Auth::user();
             $user->last_login = now();
             $user->save();
-            return redirect('/dashboard')->with('success', 'Welcome back, ' . Auth::user()->name . '!');
+            return redirect('/admin/dashboard')->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         } else {
             return back()->with('error', 'Invalid Username or Password.');
         }

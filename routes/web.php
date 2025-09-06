@@ -10,17 +10,19 @@ use Illuminate\Support\Facades\Auth;
 
 
 // USER routes
-// Authentication routes
-Route::get('/login', [UserAuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [UserAuthController::class, 'login'])->name('user.login.post');
-Route::get('/register', [UserAuthController::class, 'showRegister'])->name('user.register');
-Route::post('/register', [UserAuthController::class, 'register'])->name('user.register.post');
-Route::post('/logout', [UserAuthController::class, 'logout'])->name('userlogout');
+Route::get('/user/login', [UserAuthController::class, 'showLogin'])->name('user.login');
+Route::post('/user/login', [UserAuthController::class, 'login'])->name('user.login.post');
+Route::get('/user/register', [UserAuthController::class, 'showRegister'])->name('user.register');
+Route::post('/user/register', [UserAuthController::class, 'register'])->name('user.register.post');
+Route::post('/user/logout', [UserAuthController::class, 'logout'])->name('user.logout');
 
 
 // ADMIN routes
-Route::get('/admin', [AdminAuthController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin', [AdminAuthController::class, 'login'])->name('admin.login.post');
+Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+Route::get('/admin/register', [AdminAuthController::class, 'showRegister'])->name('admin.register');
+Route::post('/admin/register', [AdminAuthController::class, 'register'])->name('admin.register.post');
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 
 // Routes
@@ -45,22 +47,3 @@ Route::middleware([CheckLogin::class])->group(function () {
         return view('layouts.home');
     })->name('dashboard');
 });
-
-// If you have an admin login form, you can handle it like this:
-// If (Auth::guard('admin')->attempt($credentials)) {
-//     return redirect()->intended('/dashboard');
-// }
-// If (Auth::guard('admin')->attempt([
-//     'email' => $request->email,
-//     'password' => $request->password,
-// ])) {
-//     // ✅ Password matches the bcrypt hash in DB
-//     return redirect()->intended('/admin/dashboard');
-// } else {
-//     // ❌ Password does not match
-//     return back()->withErrors(['email' => 'Invalid admin credentials']);
-// }
-Route::get('/logout', [UserAuthController::class, 'logout'])->name('logout');
-Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-
-// Note: Ensure you have the necessary views and controllers created for these routes to function properly.

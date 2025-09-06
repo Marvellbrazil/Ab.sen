@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id('id_admin')->primary()->autoIncrement()->unique();
+            $table->string('name', 50);
             $table->string('username', 50)->unique();
+            $table->string('raw_password', 100)->nullable();
             $table->string('password', 100);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->dateTime('last_login')->nullable();
         });
     }
 

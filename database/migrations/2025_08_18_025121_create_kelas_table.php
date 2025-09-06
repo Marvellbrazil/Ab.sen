@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kelas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_kelas')->primary()->autoIncrement()->unique();
+            $table->unsignedBigInteger('id_admin');
+            $table->string('nama_kelas', 50);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->foreign('id_admin')->references('id_admin')->on('admins');
         });
     }
 

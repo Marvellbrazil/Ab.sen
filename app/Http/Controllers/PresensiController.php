@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Presensi_kehadiran;
+use App\Models\Presensi;
 use Illuminate\Http\Request;
 
-class PresensiKehadiranController extends Controller
+class PresensiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class PresensiKehadiranController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Presensi_kehadiran $presensi_kehadiran)
+    public function show(Presensi $presensi)
     {
         //
     }
@@ -42,7 +42,7 @@ class PresensiKehadiranController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Presensi_kehadiran $presensi_kehadiran)
+    public function edit(Presensi $presensi)
     {
         //
     }
@@ -50,7 +50,7 @@ class PresensiKehadiranController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Presensi_kehadiran $presensi_kehadiran)
+    public function update(Request $request, Presensi $presensi)
     {
         //
     }
@@ -58,7 +58,7 @@ class PresensiKehadiranController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Presensi_kehadiran $presensi_kehadiran)
+    public function destroy(Presensi $presensi)
     {
         //
     }

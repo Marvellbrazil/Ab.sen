@@ -10,8 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 
 // USER routes
+// Authentication routes
 Route::get('/login', [UserAuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [UserAuthController::class, 'login'])->name('login.post');
+Route::post('/login', [UserAuthController::class, 'login'])->name('user.login.post');
+Route::get('/register', [UserAuthController::class, 'showRegister'])->name('user.register');
+Route::post('/register', [UserAuthController::class, 'register'])->name('user.register.post');
+Route::post('/logout', [UserAuthController::class, 'logout'])->name('userlogout');
+
 
 // ADMIN routes
 Route::get('/admin', [AdminAuthController::class, 'showLogin'])->name('admin.login');
@@ -23,7 +28,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
     }
-    return redirect()->route('login');
+    return view('layouts.landing');
 });
 
 Route::get('/dashboard', function () {

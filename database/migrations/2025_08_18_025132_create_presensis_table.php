@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('link_foto')->nullable()->default(null)->unique();
             $table->text('link_video')->nullable()->default(null)->unique();
             $table->text('deskripsi')->nullable()->default(null);
+            $table->enum('status', ['belum_hadir', 'hadir', 'izin', 'sakit', 'alpha'])->default('belum_hadir');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

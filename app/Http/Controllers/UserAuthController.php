@@ -12,7 +12,7 @@ class UserAuthController extends Controller
 {
     public function showLogin()
     {
-        return view('auth.login');
+        return view('auth.user.login');
     }
 
     public function showRegister()

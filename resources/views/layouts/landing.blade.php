@@ -102,7 +102,17 @@
                 <li><a class="btn dropdown-item" href="{{ route('admin.register') }}?role=admin">Admin</a></li>
             </ul>
         </div>
-        <a href="{{ route('login') }}" class="btn">Login</a>
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="registerDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Login
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="registerDropdown">
+                <li><a class="btn dropdown-item" href="{{ route('user.login') }}?role=user">Users</a></li>
+                <li><hr></li>
+                <li><a class="btn dropdown-item" href="{{ route('admin.login') }}?role=admin">Admin</a></li>
+            </ul>
+        </div>
     </div>
 
 

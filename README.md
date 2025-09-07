@@ -130,6 +130,10 @@ npm run dev
 # Jalankan server
 php artisan serve
 
+# Jika ingin menambahkan data dummy
+php artisan tinker
+\App\Models\User::factory()->count(3)->create();
+
 ```
 
 ## 📚 Dokumentasi
@@ -149,6 +153,17 @@ xdg-open http://127.0.0.1:8000/docs
 
 # Ganti 8000 dengan port yang sesuai jika berbeda
 # Jika menggunakan port lain, sesuaikan URL di atas.
+
+```
+
+---
+
+## 📟 Tambahan
+
+```bash
+# Untuk membuat password yang di-hash
+# Dengan menggunakan aplikasi built-in project ini
+
 
 ```
 

@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="shortcut icon" href="@yield('favicon', 'assets/ab.sen_g_bordrad.png')" type="image/x-icon">
+    <link rel="shortcut icon" href="@yield('favicon', 'assets/favicon.png')" type="image/x-icon">
     <style>
     :root {
         --primary-color: #FF2800;
@@ -296,11 +296,11 @@
         <div class="login-card">
             <div class="text-center mb-4">
                 <img src="assets/ab.sen_g_trans.png" class="logo-glow mb-3" alt="logo">
-                <h2 class="fw-semibold login-title">Login</h2>
+                <h2 class="fw-semibold login-title">Login for Admin</h2>
                 <hr>
             </div>
 
-            <form method="POST" action="{{ route('user.login.post') }}">
+            <form method="POST" action="{{ route('admin.login.post') }}">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="username" name="username" class="form-control shadow-sm" placeholder=" "
@@ -329,7 +329,7 @@
                     <button type="submit" class="btn login-btn">Login</button>
                 </div>
                 <div class="text-center mt-3 extra-links">
-                    <a href="/register" class="me-2">Register</a> |
+                    <a href="/admin/register" class="me-2">Register</a> |
                     <a href="#" class="ms-2">Forgot Password?</a>
                 </div>
             </form>

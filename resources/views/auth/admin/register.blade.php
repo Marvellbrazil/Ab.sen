@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="shortcut icon" href="assets/ab.sen_g_bordrad.png" type="image/x-icon">
+    <link rel="shortcut icon" href="@yield('favicon', 'assets/favicon.png')" type="image/x-icon">
     <style>
     :root {
         --primary-color: #FF2800;
@@ -320,7 +320,7 @@
                 <hr>
             </div>
 
-            <form method="POST" action="{{ route('user.register.post') }}">
+            <form method="POST" action="{{ route('admin.register.post') }}">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="name" name="name" class="form-control shadow-sm" placeholder=" " required autocomplete="off" value="{{ old('name') }}">
@@ -381,7 +381,7 @@
                     <button type="submit" class="btn register-btn">Register</button>
                 </div>
                 <div class="text-center mt-3 extra-links">
-                    <a href="{{ route('login') }}"><span>Already have an account? Login</span></a>
+                    <a href="{{ route('admin.login') }}"><span>Already have an account? Login</span></a>
                 </div>
             </form>
         </div>

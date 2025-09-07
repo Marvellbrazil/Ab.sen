@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="shortcut icon" href="@yield('favicon', 'assets/ab.sen_g_bordrad.png')" type="image/x-icon">
+    <link rel="shortcut icon" href="@yield('favicon', 'assets/favicon.png')" type="image/x-icon">
     <style>
     body {
         min-height: 100vh;
@@ -97,9 +97,9 @@
                 Register
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="registerDropdown">
-                <li><a class="btn dropdown-item" href="{{ route('user.register') }}?role=user">Users</a></li>
+                <li><a class="btn dropdown-item" href="{{ route('user.register') }}">Users</a></li>
                 <li><hr></li>
-                <li><a class="btn dropdown-item" href="{{ route('admin.register') }}?role=admin">Admin</a></li>
+                <li><a class="btn dropdown-item" href="{{ route('admin.register') }}">Admin</a></li>
             </ul>
         </div>
         <div class="dropdown">
@@ -108,9 +108,9 @@
                 Login
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="registerDropdown">
-                <li><a class="btn dropdown-item" href="{{ route('user.login') }}?role=user">Users</a></li>
+                <li><a class="btn dropdown-item" href="{{ route('user.login') }}">Users</a></li>
                 <li><hr></li>
-                <li><a class="btn dropdown-item" href="{{ route('admin.login') }}?role=admin">Admin</a></li>
+                <li><a class="btn dropdown-item" href="{{ route('admin.login') }}">Admin</a></li>
             </ul>
         </div>
     </div>

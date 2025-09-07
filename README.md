@@ -164,7 +164,6 @@ xdg-open http://127.0.0.1:8000/docs
 # Untuk membuat password yang di-hash
 # Dengan menggunakan aplikasi built-in project ini
 
-
 ```
 
 ---

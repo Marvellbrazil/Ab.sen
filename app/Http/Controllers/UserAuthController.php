@@ -58,7 +58,7 @@ class UserAuthController extends Controller
         ]);
 
         // Redirect to login page with success message
-        return redirect('/login')->with('success', 'Registration successful! Please login.');
+        return redirect('/user/login')->with('success', 'Registration successful! Please login.');
     }
 
     public function logout()

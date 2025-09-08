@@ -401,7 +401,7 @@
     @if (session('error'))
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        showPopup("{{ session('error') }}", "assets/cross.png");
+        showPopup("{{ session('error') }}", "{{ asset('assets/cross.png') }}");
     });
     </script>
     @endif
@@ -409,7 +409,7 @@
     @if (session('success'))
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        showPopup("{{ session('success') }}", "assets/check.png");
+        showPopup("{{ session('success') }}", "{{ asset('assets/check.png') }}");
     });
     </script>
     @endif

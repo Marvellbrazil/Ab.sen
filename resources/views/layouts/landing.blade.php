@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Ab.sen | Website Presensi Online')</title>
+    <title>Ab.sen | Website Presensi Online</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="shortcut icon" href="@yield('favicon', 'assets/favicon.png')" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <style>
     body {
         min-height: 100vh;
@@ -46,12 +46,41 @@
         transition: 0.3s ease;
         font-size: 0.9rem;
         white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .btn:hover {
         background: #e02600;
         color: #fff;
         box-shadow: 0 2px 6px rgba(255, 40, 0, 0.4);
+    }
+
+    /* Custom dropdown arrow styling */
+    .dropdown-toggle {
+        position: relative;
+        padding-right: 30px !important;
+    }
+
+    .dropdown-toggle::after {
+        display: inline-block;
+        margin-left: 8px;
+        vertical-align: middle;
+        content: "";
+        border-top: 0.35em solid;
+        border-right: 0.35em solid transparent;
+        border-bottom: 0;
+        border-left: 0.35em solid transparent;
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease;
+    }
+
+    .dropdown-toggle.show::after {
+        transform: translateY(-50%) rotate(-180deg);
     }
 
     .logo {
@@ -152,9 +181,9 @@
                 Register
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="registerDropdown">
-                <li><a class="btn dropdown-item" href="{{ route('user.register') }}">Users</a></li>
+                <li><a class="btn dropdown-item" href="/user/register">Users</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="btn dropdown-item" href="{{ route('admin.register') }}">Admin</a></li>
+                <li><a class="btn dropdown-item" href="/admin/register">Admin</a></li>
             </ul>
         </div>
         <div class="dropdown">
@@ -163,16 +192,16 @@
                 Login
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
-                <li><a class="btn dropdown-item" href="{{ route('user.login') }}">Users</a></li>
+                <li><a class="btn dropdown-item" href="/user/login">Users</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="btn dropdown-item" href="{{ route('admin.login') }}">Admin</a></li>
+                <li><a class="btn dropdown-item" href="/admin/login">Admin</a></li>
             </ul>
         </div>
     </div>
 
     <!-- center content -->
     <div class="center-content text-center">
-        <img src="{{ asset('assets/ab.sen_g_trans.png') }}" alt="Absen Logo" class="logo">
+        <img src="assets/ab.sen_g_trans.png" alt="Absen Logo" class="logo">
         <div class="brand-name">Ab.sen</div>
 
         <h1>Ab.sen, Website Presensi Online.</h1>

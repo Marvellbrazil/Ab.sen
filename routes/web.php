@@ -33,17 +33,10 @@ Route::get('/', function () {
     return view('layouts.landing');
 });
 
-Route::get('/dashboard', function () {
-    return view('layouts.home');
-});
-
 // Validation Routes
 
 
 
 // Protected Routes
-Route::middleware([CheckLogin::class])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('layouts.home');
-    })->name('dashboard');
-});
+
+//use tokenization

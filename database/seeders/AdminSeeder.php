@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use DB;
+use Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,9 +14,10 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('admin')->insert([
+        DB::table('admins')->insert([
+            'name' => 'Administrator',
             'username' => 'admin',
-            'password' => bcrypt('admin1234'),
+            'password' => Hash::make('admin1234'),
         ]);
     }
 }

@@ -295,7 +295,7 @@
 
         <div class="login-card">
             <div class="text-center mb-4">
-                <img src="assets/ab.sen_g_trans.png" class="logo-glow mb-3" alt="logo">
+                <img src="{{ asset('assets/ab.sen_g_trans.png') }}" class="logo-glow mb-3" alt="logo">
                 <h2 class="fw-semibold login-title">Login for Admin</h2>
                 <hr>
             </div>

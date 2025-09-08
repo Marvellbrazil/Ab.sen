@@ -315,8 +315,8 @@
 
         <div class="register-card">
             <div class="text-center mb-4">
-                <img src="assets/ab.sen_g_trans.png" class="logo-glow mb-3" alt="logo">
-                <h2 class="fw-semibold">Register for Users</h2>
+                <img src="{{ asset('assets/ab.sen_g_trans.png') }}" class="logo-glow mb-3" alt="logo">
+                <h2 class="fw-semibold">Register</h2>
                 <hr>
             </div>
 

@@ -20,36 +20,38 @@
         text-align: center;
         margin: 0;
         padding: 2rem;
+        position: relative;
     }
 
     .top-buttons {
         position: absolute;
         top: 20px;
-        right: 30px;
+        right: 20px;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
         gap: 10px;
+        z-index: 1000;
+        max-width: 100%;
     }
 
     .btn {
         background: #fff;
         color: #000;
         border-radius: 10px;
-        padding: 8px 20px;
+        padding: 8px 15px;
         font-weight: 500;
         border: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         transition: 0.3s ease;
+        font-size: 0.9rem;
+        white-space: nowrap;
     }
 
     .btn:hover {
         background: #e02600;
         color: #fff;
-        border-radius: 10px;
-        padding: 8px 20px;
-        font-weight: 500;
-        border: none;
         box-shadow: 0 2px 6px rgba(255, 40, 0, 0.4);
-        transition: 0.3s ease;
     }
 
     .logo {
@@ -83,7 +85,60 @@
         max-width: 650px;
         margin: 0 auto;
         line-height: 1.6;
-        color: #656;
+        color: #454;
+        letter-spacing: 0.08rem;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        body {
+            padding: 5rem 1.5rem 2rem;
+        }
+
+        .top-buttons {
+            top: 10px;
+            right: 10px;
+            left: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .top-buttons {
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dropdown {
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .dropdown-toggle {
+            width: 100%;
+        }
+
+        .dropdown-menu {
+            width: 100%;
+        }
     }
     </style>
 </head>
@@ -98,26 +153,25 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="registerDropdown">
                 <li><a class="btn dropdown-item" href="{{ route('user.register') }}">Users</a></li>
-                <li><hr></li>
+                <li><hr class="dropdown-divider"></li>
                 <li><a class="btn dropdown-item" href="{{ route('admin.register') }}">Admin</a></li>
             </ul>
         </div>
         <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="registerDropdown" data-bs-toggle="dropdown"
+            <button class="btn dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 Login
             </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="registerDropdown">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
                 <li><a class="btn dropdown-item" href="{{ route('user.login') }}">Users</a></li>
-                <li><hr></li>
+                <li><hr class="dropdown-divider"></li>
                 <li><a class="btn dropdown-item" href="{{ route('admin.login') }}">Admin</a></li>
             </ul>
         </div>
     </div>
 
-
     <!-- center content -->
-    <div class="text-center">
+    <div class="center-content text-center">
         <img src="{{ asset('assets/ab.sen_g_trans.png') }}" alt="Absen Logo" class="logo">
         <div class="brand-name">Ab.sen</div>
 

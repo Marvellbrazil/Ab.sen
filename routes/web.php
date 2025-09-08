@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\BlockAssetsMiddleware;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\AdminAuthController;
@@ -37,6 +38,11 @@ Route::get('/', function () {
 
 
 
-// Protected Routes
+// Protected Routes;
+Route::middleware([BlockAssetsMiddleware::class])->group(function () {
+    Route::get('/assets/{any}', function () {
+        abort(403, 'Akses ke /assets/ diblokir.');
+    })->where('any', '.*');
+});
 
 //use tokenization

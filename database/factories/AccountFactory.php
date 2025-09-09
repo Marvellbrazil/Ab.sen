@@ -32,6 +32,7 @@ class AccountFactory extends Factory
         return [
             'name' => $name,
             'username' => fake()->username(),
+            'email' => fake()->email(),
             'raw_password' => $password,
             'password' => Hash::make($password),
         ];

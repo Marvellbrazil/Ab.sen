@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id('id_account')->primary()->autoIncrement()->unique();
-            $table->string('name', 50);
-            $table->string('username', 50)->unique();
+            $table->string('name', 75);
+            $table->string('username', 30)->unique();
+            $table->string('email', 100)->unique();
             $table->string('raw_password', 100)->nullable();
             $table->string('password', 100);
             $table->enum('role', ['admin', 'user'])->default('user');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->text('profile')->unique();
+            $table->timestamps();
             $table->dateTime('last_login')->nullable();
         });
     }

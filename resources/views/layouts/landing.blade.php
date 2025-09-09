@@ -175,27 +175,8 @@
 <body>
     <!-- top right buttons -->
     <div class="top-buttons">
-        <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="registerDropdown" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Register
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="registerDropdown">
-                <li><a class="btn dropdown-item" href="/user/register">Users</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="btn dropdown-item" href="/admin/register">Admin</a></li>
-            </ul>
-        </div>
-        <div class="dropdown">
-            <button class="btn dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Login
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
-                <li><a class="btn dropdown-item" href="/user/login">Users</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="btn dropdown-item" href="/admin/login">Admin</a></li>
-            </ul>
+        <button class="btn"><a href="">Register</a></button>
+        <button class="btn"><a href="">Login</a></button>
         </div>
     </div>
 

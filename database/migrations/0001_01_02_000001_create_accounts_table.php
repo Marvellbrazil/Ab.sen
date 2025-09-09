@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bergabungs', function (Blueprint $table) {
-            $table->id('id_bergabung')->primary()->autoIncrement()->unique();
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_kelas');
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->id('id_account')->primary()->autoIncrement()->unique();
+            $table->string('name', 50);
+            $table->string('username', 50)->unique();
+            $table->string('raw_password', 100)->nullable();
+            $table->string('password', 100);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('id_user')->references('id_user')->on('users');
-            $table->foreign('id_kelas')->references('id_kelas')->on('kelas');
+            $table->dateTime('last_login')->nullable();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bergabungs');
+        Schema::dropIfExists('accounts');
     }
 };

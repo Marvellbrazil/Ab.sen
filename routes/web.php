@@ -34,6 +34,10 @@ Route::get('/', function () {
     return view('layouts.landing');
 });
 
+Route::get('/dashboard', function() {
+    return view('dashboard');
+});
+
 // Validation Routes
 
 

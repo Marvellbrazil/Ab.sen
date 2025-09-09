@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'account'),
     ],
 
     /*
@@ -65,14 +65,9 @@ return [
     */
 
     'providers' => [
-    'users' => [
+    'account' => [
         'driver' => 'eloquent',
-        'model' => App\Models\User::class,
-    ],
-
-    'admins' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Admin::class,
+        'model' => App\Models\Account::class,
     ],
     ],
 

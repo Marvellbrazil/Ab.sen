@@ -16,6 +16,7 @@ class Account extends Authenticatable
         'name',
         'username',
         'password',
+        'role'
     ];
     protected $hidden = [
         'id_admin',

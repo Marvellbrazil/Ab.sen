@@ -11,15 +11,22 @@ class Account extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'accounts';
     protected $primaryKey = 'id_account';
     protected $fillable = [
         'name',
         'username',
+        'email',
         'password',
         'role'
     ];
     protected $hidden = [
-        'id_admin',
+        'id_account',
+        'raw_password',
         'password',
+        'updated_at',
+        'created_at',
+        'last_login',
+        'profile',
     ];
 }

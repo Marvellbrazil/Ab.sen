@@ -39,10 +39,10 @@
         background: #fff;
         color: #000;
         border-radius: 10px;
-        padding: 8px 15px;
+        padding: 10px 24px;
         font-weight: 500;
         border: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.20);
         transition: 0.3s ease;
         font-size: 0.9rem;
         white-space: nowrap;
@@ -54,7 +54,7 @@
     .btn:hover {
         background: #e02600;
         color: #fff;
-        box-shadow: 0 2px 6px rgba(255, 40, 0, 0.4);
+        box-shadow: 0 4px 18px rgba(255, 30, 0, 0.5);
     }
 
     /* Custom dropdown arrow styling */
@@ -175,9 +175,9 @@
 <body>
     <!-- top right buttons -->
     <div class="top-buttons">
-        <button class="btn"><a href="">Register</a></button>
-        <button class="btn"><a href="">Login</a></button>
-        </div>
+        <a class="btn btn-primary" href="/register">Register</a>
+        <a class="btn btn-primary" href="/login">Login</a>
+    </div>
     </div>
 
     <!-- center content -->

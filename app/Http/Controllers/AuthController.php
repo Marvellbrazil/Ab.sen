@@ -100,12 +100,8 @@ class AuthController extends Controller
     {
         // Redirect to dashboard if already authenticated
         if (Auth::check()) {
-            return redirect()->route('admin.ashboard');
-        } else {
             return redirect()->route('dashboard');
         }
-
-        //fix it so it based on role
 
         return view('auth.register');
     }

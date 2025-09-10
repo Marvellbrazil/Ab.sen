@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('raw_password', 100)->nullable();
             $table->string('password', 100);
             $table->enum('role', ['admin', 'user'])->default('user');
-            $table->text('profile')->unique();
+            $table->text('profile')->unique()->nullable()->default(null);
             $table->timestamps();
             $table->dateTime('last_login')->nullable();
         });

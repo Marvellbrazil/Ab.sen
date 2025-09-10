@@ -13,14 +13,7 @@
 </head>
 
 <body>
-    @if (session('success'))
-    <script>
-    window.onload = function() {
-        alert("{{ session('success') }}");
-    };
-    </script>
-    @endif
-    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

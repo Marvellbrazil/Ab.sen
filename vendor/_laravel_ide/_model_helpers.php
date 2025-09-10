@@ -6,11 +6,13 @@ namespace App\Models {
      * App\Models\Account
      *
      * @property \Illuminate\Support\Carbon|null $last_login
-     * @property \Illuminate\Support\Carbon $updated_at
-     * @property \Illuminate\Support\Carbon $created_at
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string $profile
      * @property mixed $role
      * @property string $password
      * @property string|null $raw_password
+     * @property string $email
      * @property string $username
      * @property string $name
      * @property int $id_account
@@ -19,9 +21,11 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereIdAccount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereUsername($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereEmail($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereRawPassword($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account wherePassword($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereRole($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereProfile($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereLastLogin($value)
@@ -645,14 +649,16 @@ namespace App\Models {
     /**
      * App\Models\Kelas
      *
-     * @property \Illuminate\Support\Carbon $updated_at
-     * @property \Illuminate\Support\Carbon $created_at
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string $kode_kelas
      * @property string $nama_kelas
      * @property mixed $id_account
      * @property mixed $id_kelas
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereIdKelas($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereIdAccount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereNamaKelas($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereKodeKelas($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas newModelQuery()

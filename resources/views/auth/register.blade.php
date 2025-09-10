@@ -320,7 +320,7 @@
                 <hr>
             </div>
 
-            <form method="POST" action="{{ route('user.register.post') }}">
+            <form method="POST" action="{{ route('register.post') }}">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="name" name="name" class="form-control shadow-sm" placeholder=" " required autocomplete="off" value="{{ old('name') }}">
@@ -334,6 +334,14 @@
                     <input type="text" id="username" name="username" class="form-control shadow-sm" placeholder=" " required autocomplete="off" value="{{ old('username') }}">
                     <label for="username" class="form-label">Username</label>
                     @error('username')
+                        <div class="text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="email" name="email" class="form-control shadow-sm" placeholder=" " required autocomplete="off" value="{{ old('email') }}">
+                    <label for="username" class="form-label">Email</label>
+                    @error('email')
                         <div class="text-danger mt-1">{{ $message }}</div>
                     @enderror
                 </div>
@@ -381,7 +389,7 @@
                     <button type="submit" class="btn register-btn">Register</button>
                 </div>
                 <div class="text-center mt-3 extra-links">
-                    <a href="{{ route('user.login') }}"><span>Already have an account? Login</span></a>
+                    <a href="{{ route('login') }}"><span>Already have an account? Login</span></a>
                 </div>
             </form>
         </div>

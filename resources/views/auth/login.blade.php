@@ -300,7 +300,7 @@
                 <hr>
             </div>
 
-            <form method="POST" action="{{ route('user.login.post') }}">
+            <form method="POST" action="{{ route('login.post') }}">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="username" name="username" class="form-control shadow-sm" placeholder=" "

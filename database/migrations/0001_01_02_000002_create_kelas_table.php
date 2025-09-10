@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('kelas', function (Blueprint $table) {
             $table->id('id_kelas')->primary()->autoIncrement()->unique();
-            $table->unsignedBigInteger('id_account');
             $table->string('nama_kelas', 50);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('id_account')->references('id_account')->on('accounts');
+            $table->string('kode_kelas', 6)->unique();
+            $table->timestamps();
         });
     }
 

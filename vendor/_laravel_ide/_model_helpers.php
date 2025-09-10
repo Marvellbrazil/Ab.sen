@@ -5,7 +5,7 @@ namespace App\Models {
     /**
      * App\Models\Account
      *
-     * @property string|null $last_login
+     * @property \Illuminate\Support\Carbon|null $last_login
      * @property \Illuminate\Support\Carbon $updated_at
      * @property \Illuminate\Support\Carbon $created_at
      * @property mixed $role
@@ -25,6 +25,10 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereLastLogin($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account admins()
+     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account users()
+     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account recent()
+     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account active()
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account query()

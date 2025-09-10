@@ -230,14 +230,13 @@
         transition: width 3s linear;
     }
 
-    /* Remove default look */
     .custom-radio .form-check-input {
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
         width: 18px;
         height: 18px;
-        border: 2px solid #FF2800;
+        border: 0.1px solid #FF2800;
         border-radius: 50%;
         outline: none;
         cursor: pointer;
@@ -246,38 +245,27 @@
         transition: all 0.2s ease;
     }
 
-    /* Hover glow */
     .custom-radio .form-check-input:hover {
         box-shadow: 0 0 6px rgba(255, 40, 0, 0.8);
     }
 
-    /* Inner dot when checked */
     .custom-radio .form-check-input:checked::before {
         content: "";
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 8px;
-        height: 8px;
-        background-color: #FF2800;
-        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        border-radius: 100%;
+        background-color: rgba(255, 100, 100, 1);
         transform: translate(-50%, -50%);
     }
 
-    /* Label styling */
     .custom-radio .form-check-label {
         margin-left: 4px;
         font-weight: 500;
         cursor: pointer;
     }
-
-    .custom-radio .form-check-input:focus {
-        box-shadow: 0 0 0 0.2rem rgba(255, 40, 0, 0.25);
-    }
-
-
-
-
 
     @media (max-width: 992px) {
         .main-wrapper {
@@ -440,22 +428,25 @@
                     </button> -->
                 </div>
 
-                <div class="form-group mt-3">
-                    <!-- <label class="form-label d-block">Role</label> -->
-                    <div class="form-check form-check-inline custom-radio">
-                        <input class="form-check-input" type="radio" name="role" id="roleUser" value="user"
-                            {{ old('role') == 'user' ? 'checked' : '' }} required>
-                        <label class="form-check-label" for="roleUser">User</label>
-                    </div>
-                    <div class="form-check form-check-inline custom-radio">
-                        <input class="form-check-input" type="radio" name="role" id="roleAdmin" value="admin"
-                            {{ old('role') == 'admin' ? 'checked' : '' }} required>
-                        <label class="form-check-label" for="roleAdmin">Admin</label>
+                <div class="form-group mt-3 text-center">
+                    <!-- <label class="form-label d-block mb-2">Role</label> -->
+                    <div class="d-flex justify-content-center gap-4">
+                        <div class="form-check custom-radio">
+                            <input class="form-check-input" type="radio" name="role" id="roleUser" value="user" checked
+                                {{ old('role') == 'user' ? 'checked' : '' }} required>
+                            <label class="form-check-label" for="roleUser">User</label>
+                        </div>
+                        <div class="form-check custom-radio">
+                            <input class="form-check-input" type="radio" name="role" id="roleAdmin" value="admin"
+                                {{ old('role') == 'admin' ? 'checked' : '' }} required>
+                            <label class="form-check-label" for="roleAdmin">Admin</label>
+                        </div>
                     </div>
                     @error('role')
                     <div class="text-danger mt-1">{{ $message }}</div>
                     @enderror
                 </div>
+
 
                 <div class="d-grid">
                     <button type="submit" class="btn register-btn">Register</button>

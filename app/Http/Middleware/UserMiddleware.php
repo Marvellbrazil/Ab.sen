@@ -6,16 +6,15 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-class AdminMiddleware
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || Auth::user()->role !== 'admin') {
-            abort(403, 'Unauthorized. Admin access required.');
+        if (!Auth::check() || Auth::user()->role !== 'user') {
+            abort(403, 'Unauthorized. User access required.');
         }
 
         return $next($request);

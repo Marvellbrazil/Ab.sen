@@ -40,13 +40,13 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     // Admin routes
-    Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
         // Add more admin routes here
     });
 
     // User routes
-    Route::middleware('user')->prefix('user')->name('user.')->group(function () {
+    Route::middleware('role:user')->prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', fn() => view('user.dashboard'))->name('dashboard');
         // Add more user routes here
     });

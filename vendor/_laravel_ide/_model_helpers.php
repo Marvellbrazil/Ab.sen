@@ -8,7 +8,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $last_login
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string $profile
+     * @property string|null $profile
      * @property mixed $role
      * @property string $password
      * @property string|null $raw_password

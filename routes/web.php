@@ -69,3 +69,10 @@ Route::get('/', function () {
         ? redirect()->route('dashboard')
         : view('layouts.landing');
 })->name('home');
+
+
+
+// Temp Routes
+Route::get('/config', function () {
+    return view('meta.meta');
+});

@@ -654,7 +654,7 @@ namespace App\Models {
      * @property string $kode_kelas
      * @property string $nama_kelas
      * @property mixed $id_account
-     * @property mixed $id_kelas
+     * @property int $id_kelas
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereIdKelas($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereIdAccount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereNamaKelas($value)

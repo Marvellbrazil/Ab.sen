@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id('id_kelas')->primary()->autoIncrement()->unique();
             $table->unsignedBigInteger('id_account');
+            $table->text('foto_kelas')->nullable()->default(null)->unique();
             $table->string('nama_kelas', 50);
             $table->string('kode_kelas', 6)->unique();
             $table->timestamps();

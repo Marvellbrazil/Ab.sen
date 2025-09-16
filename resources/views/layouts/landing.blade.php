@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+    @include('meta.meta')
     <style>
     body {
         min-height: 100vh;
@@ -175,8 +176,8 @@
 <body>
     <!-- top right buttons -->
     <div class="top-buttons">
-        <a class="btn btn-primary" href="/register">Register</a>
-        <a class="btn btn-primary" href="/login">Login</a>
+        <a class="btn" href="/register">Register</a>
+        <a class="btn" href="/login">Login</a>
     </div>
     </div>
 

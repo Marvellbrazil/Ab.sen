@@ -117,6 +117,7 @@ class AuthController extends Controller
             'username' => 'required|string|max:30|min:3|unique:accounts,username|regex:/^[a-zA-Z0-9_]+$/',
             'email' => 'required|email|max:100|unique:accounts,email',
             'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|confirmed',
         ], [
             'name.required' => 'Name is required',
             'name.max' => 'Name cannot exceed 75 characters',

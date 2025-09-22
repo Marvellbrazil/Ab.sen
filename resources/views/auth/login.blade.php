@@ -329,7 +329,7 @@
                     <button type="submit" class="btn login-btn">Login</button>
                 </div>
                 <div class="text-center mt-3 extra-links">
-                    <a href="/user/register" class="me-2">Register</a> |
+                    <a href="/register" class="me-2">Register</a> |
                     <a href="#" class="ms-2">Forgot Password?</a>
                 </div>
             </form>

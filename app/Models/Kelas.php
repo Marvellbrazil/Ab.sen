@@ -12,7 +12,10 @@ class Kelas extends Model
         'id_account',
         'foto_kelas',
         'nama_kelas',
-        'kode_kelas'
+        'kode_kelas',
+        'subnama_kelas',
+        'jumlah_anggota',
+        'jumlah_maksimal'
     ];
     protected $hidden = [
         'created_at',

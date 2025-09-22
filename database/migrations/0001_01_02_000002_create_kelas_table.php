@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id('id_kelas')->primary()->autoIncrement()->unique();
             $table->unsignedBigInteger('id_account');
-            $table->text('foto_kelas')->nullable()->default(null)->unique();
-            $table->string('nama_kelas', 50);
+            $table->string('nama_kelas', 25)->unique();
+            $table->string('subnama_kelas', 50);
             $table->string('kode_kelas', 6)->unique();
+            $table->integer('jumlah_anggota');
+            $table->integer('jumlah_maksimal');
+            $table->text('foto_kelas')->nullable()->default(null)->unique();
             $table->timestamps();
             $table->foreign('id_account')->references('id_account')->on('accounts');
         });

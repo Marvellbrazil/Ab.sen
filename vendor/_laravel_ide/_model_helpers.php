@@ -8,7 +8,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $last_login
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string|null $profile
+     * @property string|null $photo_profile
      * @property mixed $role
      * @property string $password
      * @property string|null $raw_password
@@ -25,7 +25,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereRawPassword($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account wherePassword($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereRole($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereProfile($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account wherePhotoProfile($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Account>|Account whereLastLogin($value)
@@ -651,14 +651,22 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string|null $foto_kelas
+     * @property mixed $jumlah_maksimal
+     * @property mixed $jumlah_anggota
      * @property string $kode_kelas
+     * @property string $subnama_kelas
      * @property string $nama_kelas
      * @property mixed $id_account
      * @property int $id_kelas
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereIdKelas($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereIdAccount($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereNamaKelas($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereSubnamaKelas($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereKodeKelas($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereJumlahAnggota($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereJumlahMaksimal($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereFotoKelas($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Kelas>|Kelas newModelQuery()

@@ -126,14 +126,14 @@
         }
 
         .top-buttons {
-            top: 10px;
-            right: 10px;
-            left: 10px;
-            justify-content: center;
+            flex-direction: row;
+            align-items: start;
+            justify-content: end;
+            gap: 8px;
         }
 
         .btn {
-            padding: 6px 12px;
+            padding: 8px 16px;
             font-size: 0.85rem;
         }
 
@@ -152,9 +152,11 @@
 
     @media (max-width: 576px) {
         .top-buttons {
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row;
+            align-items: start;
+            justify-content: end;
             gap: 8px;
+
         }
 
         .dropdown {

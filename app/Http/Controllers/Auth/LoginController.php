@@ -2,39 +2,70 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
+
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * Show the form for creating a new resource.
      *
-     * @var string
+     * @return \Illuminate\Http\Response
      */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function create()
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
+        return view('auth.signin');
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        $credentials = $request->only('email', 'password');
+
+        $rememberMe = $request->rememberMe ? true : false;
+
+        $users = User::find(Auth::id());
+
+        if (Auth::attempt($credentials, $rememberMe)) {
+            $request->session()->regenerate();
+
+            return view('dashboard', compact('users'));
+        }
+
+
+
+        return back()->withErrors([
+            'message' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('email'));
+    }
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/sign-in');
     }
 }

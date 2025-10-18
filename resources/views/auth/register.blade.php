@@ -17,8 +17,10 @@
                                 <div class="oblique-image position-absolute d-flex fixed-top ms-auto h-100 z-index-0 bg-cover me-n8"
                                     style="background-image:url('../assets/img/image-sign-up.jpg')">
                                     <div class="my-auto text-start max-width-350 ms-7">
-                                        <h1 class="mt-3 text-white font-weight-bolder">Perjalananmu <br> dimulai disini</h1>
-                                        <p class="text-white text-lg mt-4 mb-4">Buat akun secara gratis dan nikmati seluruh
+                                        <h1 class="mt-3 text-white font-weight-bolder">Perjalananmu <br> dimulai disini
+                                        </h1>
+                                        <p class="text-white text-lg mt-4 mb-4">Buat akun secara gratis dan nikmati
+                                            seluruh
                                             fitur-fitur gratis yang <br> ditawarkan Ab.sen.
                                         </p>
                                         <div class="d-flex align-items-center">
@@ -69,41 +71,65 @@
                                                 placeholder="Enter your name" value="{{old("name")}}" aria-label="Name"
                                                 aria-describedby="name-addon">
                                             @error('name')
-                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <label>Email Address</label>
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
-                                                placeholder="Enter your email address" value="{{old("email")}}" aria-label="Email"
-                                                aria-describedby="email-addon">
+                                                placeholder="Enter your email address" value="{{old("email")}}"
+                                                aria-label="Email" aria-describedby="email-addon">
                                             @error('email')
-                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
+
+                                        {{-- TAMBAH INPUT ROLE --}}
+                                        <label>Role</label>
+                                        <div class="mb-3">
+                                            <select id="role" name="role" class="form-control" aria-label="Role"
+                                                required>
+                                                <option value="">Pilih Role</option>
+                                                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User
+                                                </option>
+                                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
+                                                    Admin</option>
+                                            </select>
+                                            @error('role')
+                                            <span class="text-danger text-sm">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
                                         <label>Password</label>
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password" class="form-control"
                                                 placeholder="Create a password" aria-label="Password"
                                                 aria-describedby="password-addon">
                                             @error('password')
-                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
+
+                                        <label>Confirm Password</label>
+                                        <div class="mb-3">
+                                            <input type="password" id="password_confirmation"
+                                                name="password_confirmation" class="form-control"
+                                                placeholder="Confirm your password" aria-label="Confirm Password">
+                                        </div>
+
                                         <div class="form-check form-check-info text-left mb-0">
-                                            <input class="form-check-input" type="checkbox" name="terms"
-                                                id="terms" required>
+                                            <input class="form-check-input" type="checkbox" name="terms" id="terms"
+                                                required>
                                             <label class="font-weight-normal text-dark mb-0" for="terms">
                                                 I agree the <a href="javascript:;"
                                                     class="text-dark font-weight-bold">Terms and Conditions</a>.
                                             </label>
                                             @error('terms')
-                                                <span class="text-danger text-sm">{{ $message }}</span>
+                                            <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign up</button>
-                                            </button>
                                         </div>
                                     </form>
                                 </div>

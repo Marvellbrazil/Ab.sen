@@ -6,13 +6,11 @@
                 <div class="col-md-12">
                     <div class="d-md-flex align-items-center mb-3 mx-2">
                         <div class="mb-md-0 mb-3">
-                            @foreach ($users as $user)
-                            <h3 class="font-weight-bold mb-0">Hello, {{ $user->name }}</h3>
-                            @endforeach
+                            <h3 class="font-weight-bold mb-0">Hello, USER</h3>
                             <p class="mb-0">Apps you might like!</p>
                         </div>
                         <button type="button"
-                            class="btn btn-sm btn-white btn-icon d-flex align-items-center mb-0 ms-md-auto mb-sm-0 mb-2 me-2">
+                            class="btn btn-sm btn-white btn-icon d-flex align-items-center ms-md-auto mb-sm-0 mb-2 me-2">
                             <span class="btn-inner--icon">
                                 <span class="p-1 bg-success rounded-circle d-flex ms-auto me-2">
                                     <span class="visually-hidden">New</span>

@@ -36,7 +36,7 @@
                                 @endif
                                 <div class="card-body">
                                     <form role="form" action="/forgot-password" method="POST">
-                                        {{ csrf_field() }}
+                                        @csrf
                                         <div class="mb-3">
                                             <input type="email" class="form-control" placeholder="Email"
                                                 aria-label="Email" id="email" name="email"

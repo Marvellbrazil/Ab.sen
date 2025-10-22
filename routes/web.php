@@ -25,10 +25,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Admin Only Routes
-Route::middleware(['admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    // Tambahkan route admin lainnya di sini
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
 // Redirect root to dashboard or login

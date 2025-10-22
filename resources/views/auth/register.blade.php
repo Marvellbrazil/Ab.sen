@@ -46,7 +46,8 @@
                                                         class="rounded-circle">
                                                 </a>
                                             </div>
-                                            <p class="font-weight-bold text-white text-sm mb-0 ms-2">Join 2.5M+ users
+                                            <p class="font-weight-bold text-white text-sm mb-0 ms-2">
+                                                Bergabunglah dengan komunitas Ab.sen
                                             </p>
                                         </div>
                                     </div>
@@ -59,8 +60,8 @@
                         <div class="col-md-4 d-flex flex-column mx-auto">
                             <div class="card card-plain mt-8">
                                 <div class="card-header pb-0 text-left bg-transparent">
-                                    <h3 class="font-weight-black text-dark display-6">Sign up</h3>
-                                    <p class="mb-0">Nice to meet you! Please enter your details.</p>
+                                    <h3 class="font-weight-black text-dark display-6">Register</h3>
+                                    <p class="mb-0">Buatlah akun baru dan nikmati benefitnya!</p>
                                 </div>
                                 <div class="card-body">
                                     <form role="form" method="POST" action="{{ route('register') }}">
@@ -69,7 +70,7 @@
                                         <div class="mb-3">
                                             <input type="text" id="name" name="name" class="form-control"
                                                 placeholder="Enter your name" value="{{old("name")}}" aria-label="Name"
-                                                aria-describedby="name-addon">
+                                                aria-describedby="name-addon" required>
                                             @error('name')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
@@ -78,7 +79,7 @@
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
                                                 placeholder="Enter your email address" value="{{old("email")}}"
-                                                aria-label="Email" aria-describedby="email-addon">
+                                                aria-label="Email" aria-describedby="email-addon" required>
                                             @error('email')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
@@ -104,7 +105,7 @@
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password" class="form-control"
                                                 placeholder="Create a password" aria-label="Password"
-                                                aria-describedby="password-addon">
+                                                aria-describedby="password-addon" required>
                                             @error('password')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
@@ -114,7 +115,8 @@
                                         <div class="mb-3">
                                             <input type="password" id="password_confirmation"
                                                 name="password_confirmation" class="form-control"
-                                                placeholder="Confirm your password" aria-label="Confirm Password">
+                                                placeholder="Confirm your password" aria-label="Confirm Password"
+                                                aria-describedby="password-addon" required>
                                         </div>
 
                                         <div class="form-check form-check-info text-left mb-0">
@@ -129,13 +131,13 @@
                                             @enderror
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign up</button>
+                                            <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Register</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                     <p class="mb-4 text-xs mx-auto">
-                                        Already have an account?
+                                        Sudah memiliki akun?
                                         <a href="{{ route('login.form') }}" class="text-dark font-weight-bold">Login</a>
                                     </p>
                                 </div>

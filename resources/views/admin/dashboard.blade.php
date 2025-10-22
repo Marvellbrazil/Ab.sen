@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="d-md-flex align-items-center mb-3 mx-2">
                         <div class="mb-md-0 mb-3">
-                            <h3 class="font-weight-bold mb-0">Hello, {{ auth()->user()->name }} ({{ strtoupper(auth()->user()->role) }})</h3>
+                            <h3 class="font-weight-bold mb-0">Hello, {{ auth()->user()->name }}</h3>
                         </div>
                         <button type="button"
                             class="btn btn-sm btn-white btn-icon d-flex align-items-center ms-md-auto mb-sm-0 mb-2 me-2">
@@ -44,7 +44,7 @@
                                         <div class="card-body text-start px-3 py-0 w-100">
                                             <div class="row mt-12">
                                                 <div class="col-sm-3 mt-auto">
-                                                    <h4 class="text-dark font-weight-bolder">#1</h4>
+                                                    <h4 class="text-3xl text-dark font-weight-bolder">#1</h4>
                                                     <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name
                                                     </p>
                                                     <h5 class="text-dark font-weight-bolder">Secured</h5>
@@ -67,7 +67,7 @@
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
-                                                <h4 class="text-dark font-weight-bolder">#2</h4>
+                                                <h4 class="text-3xl text-dark font-weight-bolder">#2</h4>
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
                                                 <h5 class="text-dark font-weight-bolder">Cyber</h5>
                                             </div>
@@ -88,7 +88,7 @@
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
-                                                <h4 class="text-dark font-weight-bolder">#3</h4>
+                                                <h4 class="text-3xl text-dark font-weight-bolder">#3</h4>
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
                                                 <h5 class="text-dark font-weight-bolder">Alpha</h5>
                                             </div>
@@ -109,7 +109,7 @@
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
-                                                <h4 class="text-dark font-weight-bolder">#4</h4>
+                                                <h4 class="text-3xl text-dark font-weight-bolder">#4</h4>
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
                                                 <h5 class="text-dark font-weight-bolder">Beta</h5>
                                             </div>
@@ -130,7 +130,7 @@
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
-                                                <h4 class="text-dark font-weight-bolder">#5</h4>
+                                                <h4 class="text-3xl text-dark font-weight-bolder">#5</h4>
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
                                                 <h5 class="text-dark font-weight-bolder">Gama</h5>
                                             </div>
@@ -151,7 +151,7 @@
                                     <div class="card-body text-start px-3 py-0 w-100">
                                         <div class="row mt-12">
                                             <div class="col-sm-3 mt-auto">
-                                                <h4 class="text-dark font-weight-bolder">#6</h4>
+                                                <h4 class="text-3xl text-dark font-weight-bolder">#6</h4>
                                                 <p class="text-dark opacity-6 text-xs font-weight-bolder mb-0">Name</p>
                                                 <h5 class="text-dark font-weight-bolder">Rompro</h5>
                                             </div>
@@ -174,18 +174,21 @@
                 <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
                     <div class="card shadow-xs border h-100">
                         <div class="card-header pb-0">
-                            <h6 class="font-weight-semibold text-lg mb-0">Balances over time</h6>
-                            <p class="text-sm">Here you have details about the balance.</p>
+                            <h6 class="font-weight-semibold text-lg mb-0">Statistik Presensi</h6>
+                            <p class="text-sm">Lihat statistik presensi dari kelas-kelas mu!</p>
                             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1"
                                     autocomplete="off" checked>
-                                <label class="btn btn-white px-3 mb-0" for="btnradio1">12 months</label>
+                                <label class="btn btn-white px-3 mb-0" for="btnradio1">Minggu 1</label>
                                 <input type="radio" class="btn-check" name="btnradio" id="btnradio2"
                                     autocomplete="off">
-                                <label class="btn btn-white px-3 mb-0" for="btnradio2">30 days</label>
+                                <label class="btn btn-white px-3 mb-0" for="btnradio2">Minggu 2</label>
                                 <input type="radio" class="btn-check" name="btnradio" id="btnradio3"
                                     autocomplete="off">
-                                <label class="btn btn-white px-3 mb-0" for="btnradio3">7 days</label>
+                                <label class="btn btn-white px-3 mb-0" for="btnradio3">Minggu 3</label>
+                                <input type="radio" class="btn-check" name="btnradio" id="btnradio4"
+                                    autocomplete="off">
+                                <label class="btn btn-white px-3 mb-0" for="btnradio4">Minggu 4</label>
                             </div>
                         </div>
                         <div class="card-body py-3">
@@ -201,24 +204,12 @@
                         <div class="card-header border-bottom pb-0">
                             <div class="d-sm-flex align-items-center mb-3">
                                 <div>
-                                    <h6 class="font-weight-semibold text-lg mb-0">Recent transactions</h6>
-                                    <p class="text-sm mb-sm-0 mb-2">These are details about the last transactions</p>
+                                    <h6 class="font-weight-semibold text-lg mb-0">Daftar Kelas</h6>
+                                    <p class="text-sm mb-sm-0 mb-2">Daftar-daftar kelas yang terbaru</p>
                                 </div>
                                 <div class="ms-auto d-flex">
                                     <button type="button" class="btn btn-sm btn-white mb-0 me-2">
-                                        View report
-                                    </button>
-                                    <button type="button"
-                                        class="btn btn-sm btn-dark btn-icon d-flex align-items-center mb-0">
-                                        <span class="btn-inner--icon">
-                                            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                stroke="currentColor" class="d-block me-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                            </svg>
-                                        </span>
-                                        <span class="btn-inner--text">Download</span>
+                                        Selengkapnya
                                     </button>
                                 </div>
                             </div>
@@ -226,13 +217,13 @@
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                                     <input type="radio" class="btn-check" name="btnradiotable" id="btnradiotable1"
                                         autocomplete="off" checked>
-                                    <label class="btn btn-white px-3 mb-0" for="btnradiotable1">All</label>
+                                    <label class="btn btn-white px-3 mb-0" for="btnradiotable1">Semua</label>
                                     <input type="radio" class="btn-check" name="btnradiotable" id="btnradiotable2"
                                         autocomplete="off">
-                                    <label class="btn btn-white px-3 mb-0" for="btnradiotable2">Monitored</label>
+                                    <label class="btn btn-white px-3 mb-0" for="btnradiotable2">Ditandai</label>
                                     <input type="radio" class="btn-check" name="btnradiotable" id="btnradiotable3"
                                         autocomplete="off">
-                                    <label class="btn btn-white px-3 mb-0" for="btnradiotable3">Unmonitored</label>
+                                    <label class="btn btn-white px-3 mb-0" for="btnradiotable3">Tidak Ditandai</label>
                                 </div>
                                 <div class="input-group w-sm-25 ms-auto">
                                     <span class="input-group-text text-body">
@@ -244,7 +235,7 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" class="form-control" placeholder="Cari kelas">
                                 </div>
                             </div>
                         </div>
@@ -254,13 +245,13 @@
                                     <thead class="bg-gray-100">
                                         <tr>
                                             <th class="text-secondary text-xs font-weight-semibold opacity-7">
-                                                Transaction</th>
+                                                Nama Kelas</th>
                                             <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
-                                                Amount</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Date
+                                                Jumlah Anggota</th>
+                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tanggal Dibuat
                                             </th>
                                             <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">
-                                                Account</th>
+                                                </th>
                                             <th
                                                 class="text-center text-secondary text-xs font-weight-semibold opacity-7">
                                             </th>

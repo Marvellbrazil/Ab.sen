@@ -28,13 +28,14 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
-        }
+            $user = Auth::user();
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('dashboard');
+            }
+        }
     }
 
     // Show Register Form

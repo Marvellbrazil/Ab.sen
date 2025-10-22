@@ -37,14 +37,14 @@
                                             <input type="email" id="email" name="email" class="form-control"
                                                 placeholder="Enter your email address"
                                                 value="{{ old('email') ? old('email') : '' }}" aria-label="Email"
-                                                aria-describedby="email-addon">
+                                                aria-describedby="email-addon" required>
                                         </div>
                                         <label>Password</label>
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password"
                                                 value="{{ old('password') ? old('password') : '' }}"
                                                 class="form-control" placeholder="Enter password" aria-label="Password"
-                                                aria-describedby="password-addon">
+                                                aria-describedby="password-addon" required>
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <div class="form-check form-check-info text-left mb-0">
@@ -60,14 +60,14 @@
                                                 password</a>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign in</button>
+                                            <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Login</button>
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                     <p class="mb-4 text-xs mx-auto">
-                                        Don't have an account?
+                                        Belum memiliki akun?
                                         <a href="{{ route('register.form') }}" class="text-dark font-weight-bold">Register</a>
                                     </p>
                                 </div>

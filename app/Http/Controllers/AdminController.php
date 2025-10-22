@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         $datas = User::all();
 

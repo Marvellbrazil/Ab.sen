@@ -31,7 +31,7 @@
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/349ee9c857.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/corporate-ui-dashboard.css?v=1.0.0" rel="stylesheet" />
@@ -41,17 +41,13 @@
 <body class="g-sidenav-show  bg-gray-100">
     @php
         $topSidenavArray = ['wallet', 'profile'];
-        $topSidenavTransparent = ['signin', 'signup'];
-        $topSidenavRTL = ['RTL'];
+        $topSidenavTransparent = ['login', 'register'];
     @endphp
     @if (in_array(request()->route()->getName(),
             $topSidenavArray))
         <x-sidenav-top />
     @elseif(in_array(request()->route()->getName(),
             $topSidenavTransparent))
-
-    @elseif(in_array(request()->route()->getName(),
-            $topSidenavRTL))
     @else
         <x-app.sidebar />
     @endif
@@ -65,8 +61,6 @@
         <div class="card shadow-lg ">
             <div class="card-header pb-0 pt-3 ">
                 <div class="float-start">
-                    <h5 class="mt-3 mb-0">Corporate UI Configurator</h5>
-                    <p>See our dashboard options.</p>
                 </div>
                 <div class="float-end mt-4">
                     <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
@@ -411,7 +405,7 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Corporate UI Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="../assets/js/corporate-ui-dashboard.min.js?v=1.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

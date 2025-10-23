@@ -32,7 +32,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 
 ## ✨ Fitur Utama
 
-- 📸 **Verifikasi Wajah** dengan unggah foto & video minimal 3 detik.  
+- 📸 **Verifikasi Wajah** dengan unggah foto
 - 🌐 **Akses Web** dari perangkat apa saja yang terhubung internet.  
 - 📊 **Laporan Kehadiran** otomatis & riwayat presensi.  
 - 🔒 **Keamanan Data** dengan enkripsi & kontrol akses.  
@@ -43,10 +43,10 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 
 ## 🛠️ Teknologi yang Digunakan
 
-- **Backend:** PHP 8.x, Laravel 11.x  
-- **Frontend:** Bootstrap 5, Blade Templating  
-- **Database:** MySQL / MariaDB  
-- **Keamanan:** Enkripsi data, kontrol hak akses  
+- **Backend:** PHP 8.2+, Laravel 12+ 
+- **Frontend:** Bootstrap 5.3+, Blade Templating Engine  
+- **Database:** MariaDB  
+- **Keamanan:** Enkripsi data menggunakan metode kriptografi Bcrypt dan kontrol hak akses  
 - **Hosting:** Web-based (tidak memerlukan perangkat khusus)  
 
 ---
@@ -56,7 +56,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ## 🔀 DFD Level 0
 
 <p align="center">
-  <img src="public/assets/dfd.png" alt="DFD Ab.sen">
+  <img src="" alt="DFD Ab.sen">
 </p>
 
 ---
@@ -64,7 +64,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ## 👤 Flowchart User
 
 <p align="center">
-  <img src="public/assets/flowchart_user.png" alt="Flowchart User">
+  <img src="" alt="Flowchart User">
 </p>
 
 ---
@@ -72,7 +72,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ## 🔑 Flowchart Admin
 
 <p align="center">
-  <img src="public/assets/flowchart_admin.png" alt="Flowchart Admin">
+  <img src="" alt="Flowchart Admin">
 </p>
 
 ---
@@ -80,7 +80,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ## 🔒 Flowchart Login User
 
 <p align="center">
-  <img src="public/assets/flowchart_login.png" alt="Flowchart Login">
+  <img src="" alt="Flowchart Login">
 </p>
 
 ---
@@ -88,7 +88,7 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 ## 🌐 ERD (Entity Relationship Diagram)
 
 <p align="center">
-  <img src="public/assets/erd.png" alt="ERD Ab.sen">
+  <img src="" alt="ERD Ab.sen">
 </p>
 
 ---
@@ -99,8 +99,8 @@ Dengan desain responsif, sistem keamanan yang kuat, dan penyimpanan data terpusa
 |-------|-----------|
 | **Admin** | Kelola sistem & data kelas |
 | **User** | Akses presensi & profil |
-| **Kelas** | Data kelas & relasi dengan user |
-| **Presensi** | Data kehadiran, foto, video, status |
+| **Kelas** | Data kelas & relasi dengan user, dan admin |
+| **Presensi** | Data kehadiran, foto, keterangan, dan status |
 | **Bergabung** | Relasi user ↔ kelas |
 
 ---

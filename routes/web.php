@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminKelasController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,22 +16,36 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
-Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
-Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Dashboard Routes untuk semua user yang login
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/tables', [DashboardController::class, 'tables'])->name('tables');
-    Route::get('/wallet', [DashboardController::class, 'wallet'])->name('wallet');
+    
+    // Kelas routes untuk user biasa - hanya bisa melihat, tidak bisa edit/update kelas
+    Route::resource('kelas', KelasController::class)->only(['index', 'show', 'store', 'destroy']);
+    
+    // Presensi routes - user bisa edit presensi mereka
+    Route::resource('presensi', PresensiController::class)->except(['create', 'store', 'edit', 'update']);
+    Route::get('kelas/{kelas}/presensi/create', [PresensiController::class, 'createByKelas'])->name('presensi.create-by-kelas');
+    Route::post('kelas/{kelas}/presensi', [PresensiController::class, 'store'])->name('presensi.store');
+    Route::get('kelas/{kelas}/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
+    Route::put('kelas/{kelas}/presensi/{presensi}', [PresensiController::class, 'update'])->name('presensi.update');
+    
+    // Notifikasi routes
+    Route::resource('notifikasi', NotifikasiController::class)->only(['index', 'destroy']);
+    Route::post('notifikasi/{notifikasi}/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi.mark-as-read');
+    Route::post('notifikasi/{notifikasi}/update-checked', [NotifikasiController::class, 'updateChecked'])->name('notifikasi.update-checked');
+    Route::post('notifikasi/mark-all-read', [NotifikasiController::class, 'markAllAsRead'])->name('notifikasi.mark-all-read');
+
+    Route::resource('profil', ProfilController::class);
+    Route::view('/profiledit', 'user.profil.edit')->name('profil.edit');
 });
 
 // Admin Only Routes
-Route::middleware(['admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/kelas', AdminKelasController::class);
 });
 
 // Redirect root to dashboard or login

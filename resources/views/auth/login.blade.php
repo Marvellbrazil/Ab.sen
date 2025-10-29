@@ -2,7 +2,6 @@
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
-                <x-guest.sidenav-guest />
             </div>
         </div>
     </div>
@@ -18,9 +17,9 @@
                                     <p class="mb-0">Selamat datang kembali di Ab.sen!</p>
                                 </div>
                                 <div class="text-center">
-                                    @if (session('status'))
-                                    <div class="mb-4 font-medium text-sm text-green-600">
-                                        {{ session('status') }}
+                                    @if (session('error'))
+                                    <div class="mb-4 font-medium text-sm text-white bg-danger p-2 rounded">
+                                        {{ session('error') }}
                                     </div>
                                     @endif
                                     @error('message')
@@ -35,7 +34,7 @@
                                         <label>Email Address</label>
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
-                                                placeholder="Enter your email address"
+                                                placeholder="Masukkan alamat email anda"
                                                 value="{{ old('email') ? old('email') : '' }}" aria-label="Email"
                                                 aria-describedby="email-addon" required>
                                         </div>
@@ -43,21 +42,18 @@
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password"
                                                 value="{{ old('password') ? old('password') : '' }}"
-                                                class="form-control" placeholder="Enter password" aria-label="Password"
+                                                class="form-control" placeholder="******** ******** ****" aria-label="Password"
                                                 aria-describedby="password-addon" required>
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <div class="form-check form-check-info text-left mb-0">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="flexCheckDefault"
-                                                    onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'">
+                                                    onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'; this.checked ? document.getElementById('password').setAttribute('placeholder', 'Masukkan password anda') : document.getElementById('password').setAttribute('placeholder', '******** ******** ****');">
                                                 <label class="font-weight-normal text-dark mb-0" for="flexCheckDefault">
                                                     Show Password
                                                 </label>
                                             </div>
-                                            <a href="#"
-                                                class="text-xs font-weight-bold ms-auto">Forgot
-                                                password</a>
                                         </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Login</button>
@@ -68,7 +64,8 @@
                                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                     <p class="mb-4 text-xs mx-auto">
                                         Belum memiliki akun?
-                                        <a href="{{ route('register.form') }}" class="text-dark font-weight-bold">Register</a>
+                                        <a href="{{ route('register.form') }}"
+                                            class="text-dark font-weight-bold">Register</a>
                                     </p>
                                 </div>
                             </div>

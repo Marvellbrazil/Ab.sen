@@ -1,0 +1,10 @@
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+@import 'font-awesome/css/font-awesome.min.css';
+@import 'font-awesome/less/font-awesome.less';
+
+.input-group .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

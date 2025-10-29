@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable;
+
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
 
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
-        'role',
+        'role'
     ];
 
     protected $hidden = [
@@ -24,10 +24,29 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    // Relationship dengan Notifikasi
+    public function notifikasis()
+    {
+        return $this->hasMany(Notifikasi::class, 'id_user', 'id_user');
+    }
+
+    // Relationship dengan Bergabung
+    public function bergabungs()
+    {
+        return $this->hasMany(Bergabung::class, 'id_user', 'id_user');
+    }
+
+    // Relationship dengan Kelas melalui Bergabung
+    public function kelas()
+    {
+        return $this->belongsToMany(Kelas::class, 'bergabungs', 'id_user', 'id_kelas');
+    }
+
+    // Relationship dengan Presensi
+    public function presensis()
+    {
+        return $this->hasMany(Presensi::class, 'id_user', 'id_user');
+    }
 
     // Method untuk cek role
     public function isAdmin()

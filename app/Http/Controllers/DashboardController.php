@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kelas;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard');
-    }
+        $kelas = Kelas::whereHas('bergabung', function($query) {
+                $query->where('id_user', Auth::id());
+            })
+            ->with('user')
+            ->latest()
+            ->take(4)
+            ->get();
 
-    public function tables()
-    {
-        return view('tables');
-    }
-
-    public function wallet()
-    {
-        return view('wallet');
+        return view('user.dashboard', compact('kelas'));
     }
 }

@@ -3,7 +3,6 @@
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
             <div class="col-12">
-                <x-guest.sidenav-guest />
             </div>
         </div>
     </div>
@@ -66,19 +65,19 @@
                                 <div class="card-body">
                                     <form role="form" method="POST" action="{{ route('register') }}">
                                         @csrf
-                                        <label>Name</label>
+                                        <label>Username</label>
                                         <div class="mb-3">
-                                            <input type="text" id="name" name="name" class="form-control"
-                                                placeholder="Enter your name" value="{{old("name")}}" aria-label="Name"
-                                                aria-describedby="name-addon" required>
-                                            @error('name')
+                                            <input type="text" id="username" name="username" class="form-control"
+                                                placeholder="Buat username baru" value="{{old("username")}}"
+                                                aria-label="Username" aria-describedby="username-addon" required>
+                                            @error('username')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <label>Email Address</label>
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email" class="form-control"
-                                                placeholder="Enter your email address" value="{{old("email")}}"
+                                                placeholder="Masukkan alamat email anda" value="{{old("email")}}"
                                                 aria-label="Email" aria-describedby="email-addon" required>
                                             @error('email')
                                             <span class="text-danger text-sm">{{ $message }}</span>
@@ -90,8 +89,7 @@
                                         <div class="mb-3">
                                             <select id="role" name="role" class="form-control" aria-label="Role"
                                                 required>
-                                                <option value="">Pilih Role</option>
-                                                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User
+                                                <option value="user" selected {{ old('role') == 'user' ? 'selected' : '' }}>User
                                                 </option>
                                                 <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
                                                     Admin</option>
@@ -104,7 +102,7 @@
                                         <label>Password</label>
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password" class="form-control"
-                                                placeholder="Create a password" aria-label="Password"
+                                                placeholder="Buat password baru" aria-label="Password"
                                                 aria-describedby="password-addon" required>
                                             @error('password')
                                             <span class="text-danger text-sm">{{ $message }}</span>
@@ -115,7 +113,7 @@
                                         <div class="mb-3">
                                             <input type="password" id="password_confirmation"
                                                 name="password_confirmation" class="form-control"
-                                                placeholder="Confirm your password" aria-label="Confirm Password"
+                                                placeholder="Konfirmasi password baru" aria-label="Confirm Password"
                                                 aria-describedby="password-addon" required>
                                         </div>
 
@@ -123,7 +121,7 @@
                                             <input class="form-check-input" type="checkbox" name="terms" id="terms"
                                                 required>
                                             <label class="font-weight-normal text-dark mb-0" for="terms">
-                                                I agree the <a href="javascript:;"
+                                                I agree the <a onclick="confirm('1. Tidak boleh menyalahgunakannya\n2. Tidak boleh mengambil keuntungan dari ini\n3. Dengan ini saya menyetujui semua syarat dan ketentuan')"
                                                     class="text-dark font-weight-bold">Terms and Conditions</a>.
                                             </label>
                                             @error('terms')

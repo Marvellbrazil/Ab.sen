@@ -28,7 +28,6 @@ class PresensiController extends Controller
      */
     public function create(Kelas $kelas)
     {
-        // Cek apakah sudah ada presensi hari ini untuk user dan kelas ini
         $existingPresensi = Presensi::where('id_user', Auth::id())
             ->where('id_kelas', $kelas->id_kelas)
             ->whereDate('created_at', today())
@@ -38,10 +37,9 @@ class PresensiController extends Controller
             return redirect()->route('presensi.edit', ['kelas' => $kelas, 'presensi' => $existingPresensi]);
         }
 
-        // Gunakan view yang sama dengan edit untuk konsistensi
         return view('user.kelas.edit', [
             'kelas' => $kelas,
-            'presensi' => new Presensi() // Presensi kosong untuk create
+            'presensi' => new Presensi()
         ]);
     }
 
@@ -59,7 +57,6 @@ public function store(Request $request, Kelas $kelas)
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        // Cek apakah sudah ada presensi hari ini
         $existingPresensi = Presensi::where('id_user', Auth::id())
             ->where('id_kelas', $kelas->id_kelas)
             ->whereDate('created_at', today())
@@ -77,7 +74,7 @@ public function store(Request $request, Kelas $kelas)
 
         Presensi::create([
             'id_user' => Auth::id(),
-            'id_kelas' => $kelas->id_kelas, // Pastikan id_kelas diisi
+            'id_kelas' => $kelas->id_kelas,
             'status' => $request->status,
             'keterangan' => $request->keterangan,
             'gambar' => $gambarPath
@@ -92,7 +89,6 @@ public function store(Request $request, Kelas $kelas)
      */
     public function show(Presensi $presensi)
     {
-        // Pastikan user hanya bisa melihat presensi miliknya sendiri
         if ($presensi->id_user !== Auth::id() && !Auth::user()->hasRole('admin')) {
             abort(403, 'Unauthorized action.');
         }
@@ -108,7 +104,6 @@ public function store(Request $request, Kelas $kelas)
      */
     public function edit(Kelas $kelas, Presensi $presensi)
     {
-        // Pastikan user hanya bisa mengedit presensi miliknya sendiri
         if ($presensi->id_user !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
@@ -126,12 +121,10 @@ public function store(Request $request, Kelas $kelas)
      */
     public function update(Request $request, Kelas $kelas, Presensi $presensi)
     {
-        // Pastikan user hanya bisa mengupdate presensi miliknya sendiri
         if ($presensi->id_user !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
-        // Pastikan presensi terkait dengan kelas yang benar
         if ($presensi->id_kelas !== $kelas->id_kelas) {
             abort(404, 'Presensi tidak ditemukan untuk kelas ini.');
         }
@@ -147,9 +140,7 @@ public function store(Request $request, Kelas $kelas)
             'keterangan' => $request->keterangan,
         ];
 
-        // Handle upload gambar baru
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika bukan default
             if ($presensi->gambar !== 'default.jpg') {
                 Storage::disk('public')->delete($presensi->gambar);
             }
@@ -167,12 +158,10 @@ public function store(Request $request, Kelas $kelas)
      */
     public function destroy(Presensi $presensi)
     {
-        // Pastikan user hanya bisa menghapus presensi miliknya sendiri
         if ($presensi->id_user !== Auth::id() && !Auth::user()->hasRole('admin')) {
             abort(403, 'Unauthorized action.');
         }
 
-        // Hapus gambar jika bukan default
         if ($presensi->gambar !== 'default.jpg') {
             Storage::disk('public')->delete($presensi->gambar);
         }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('status', ['belum hadir', 'hadir', 'izin', 'sakit', 'alpha'])->default('belum hadir');
             $table->text('keterangan')->nullable();
             $table->text('gambar')->default('default.jpg');
+            $table->enum('status_pengumpulan', ['tepat waktu', 'terlambat'])->default(null);
             $table->timestamps();
         });
     }

@@ -25,13 +25,13 @@
     <td>
         @php
         $badgeClass = [
-        'info' => 'bg-info',
-        'warning' => 'bg-warning',
-        'success' => 'bg-success',
-        'error' => 'bg-danger'
-        ][$tipe] ?? 'bg-secondary';
+        'info' => 'text-info',
+        'warning' => 'text-warning',
+        'success' => 'text-success',
+        'error' => 'text-danger'
+        ][$tipe] ?? 'text-secondary';
         @endphp
-        <span class="badge badge-sm {{ $badgeClass }} text-white">{{ $tipe }}</span>
+        <span class="badge badge-sm {{ $badgeClass }}">{{ Str::upper($tipe) }}</span>
     </td>
     <td class="text-sm font-weight-semibold text-dark">
         <div class="d-flex gap-2">

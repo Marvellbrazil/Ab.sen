@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('nama_kelas');
             $table->text('deskripsi_kelas')->nullable();
             $table->text('gambar_kelas')->default('default.png');
+            $table->time('waktu_mulai');
+            $table->time('waktu_selesai');
             $table->timestamps();
         });
     }

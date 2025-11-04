@@ -17,10 +17,9 @@ return new class extends Migration
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('id_kelas');
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas')->onDelete('cascade');
-            $table->enum('status', ['belum hadir', 'hadir', 'izin', 'sakit', 'alpha'])->default('belum hadir');
+            $table->enum('status', ['terlambat', 'hadir', 'izin', 'sakit', 'alpha'])->default('alpha');
             $table->text('keterangan')->nullable();
             $table->text('gambar')->default('default.jpg');
-            $table->enum('status_pengumpulan', ['tepat waktu', 'terlambat'])->default(null);
             $table->timestamps();
         });
     }

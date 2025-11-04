@@ -15,7 +15,7 @@ class ProfilController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('user.profil.index', compact('user'));
+        return view('profil.index', compact('user'));
     }
 
     /**
@@ -29,7 +29,7 @@ class ProfilController extends Controller
         }
         
         $user = Auth::user();
-        return view('user.profil.edit', compact('user'));
+        return view('profil.edit', compact('user'));
     }
 
     /**

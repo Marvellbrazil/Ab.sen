@@ -3,6 +3,7 @@
 'nama_kelas',
 'pemilik',
 'deskripsi' => '',
+'tenggang_absensi',
 'status',
 'tanggal',
 'kelas'
@@ -43,6 +44,9 @@ $existingPresensi = \App\Models\Presensi::where('id_user', Auth::id())
         <span class="text-secondary text-sm font-weight-normal">{{ $tanggal }}</span>
     </td>
     <td class="align-middle text-center col-status">
+        <span class="badge badge-sm border border-success text-success bg-success">{{ $tenggang_absensi }}</span>
+    </td>
+    <td class="align-middle text-center col-status">
         <span class="badge badge-sm border border-success text-success bg-success">{{ $status }}</span>
     </td>
     <td class="text-center align-middle col-aksi">
@@ -52,7 +56,6 @@ $existingPresensi = \App\Models\Presensi::where('id_user', Auth::id())
             </button>
             <ul class="dropdown-menu">
                 @if($existingPresensi)
-                <!-- Jika sudah ada presensi, tampilkan tombol edit presensi -->
                 <li>
                     <a class="dropdown-item"
                         href="{{ route('presensi.edit', ['kelas' => $kelas->id_kelas, 'presensi' => $existingPresensi->id_presensi]) }}">
@@ -87,7 +90,7 @@ $existingPresensi = \App\Models\Presensi::where('id_user', Auth::id())
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{{ route('admin.kelas.edit', $kelas->id_kelas) }}">
+                    <a class="dropdown-item" href="{{ route('kelas.edit', $kelas->id_kelas) }}">
                         <i class="fa-solid fa-edit me-2"></i>Edit Kelas
                     </a>
                 </li>

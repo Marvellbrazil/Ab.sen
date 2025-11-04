@@ -42,14 +42,14 @@
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password"
                                                 value="{{ old('password') ? old('password') : '' }}"
-                                                class="form-control" placeholder="******** ******** ****" aria-label="Password"
+                                                class="form-control" placeholder="********************" aria-label="Password"
                                                 aria-describedby="password-addon" required>
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <div class="form-check form-check-info text-left mb-0">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                     id="flexCheckDefault"
-                                                    onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'; this.checked ? document.getElementById('password').setAttribute('placeholder', 'Masukkan password anda') : document.getElementById('password').setAttribute('placeholder', '******** ******** ****');">
+                                                    onchange="document.getElementById('password').type = this.checked ? 'text' : 'password'; this.checked ? document.getElementById('password').setAttribute('placeholder', 'Masukkan password anda') : document.getElementById('password').setAttribute('placeholder', '********************');">
                                                 <label class="font-weight-normal text-dark mb-0" for="flexCheckDefault">
                                                     Show Password
                                                 </label>

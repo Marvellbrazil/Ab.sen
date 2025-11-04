@@ -5,178 +5,83 @@ namespace App\Http\Controllers;
 use App\Models\Presensi;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PresensiController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $presensis = Presensi::with(['user', 'kelas'])
-            ->where('id_user', Auth::id())
-            ->latest()
-            ->get();
-            
-        return view('presensi.index', compact('presensis'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
+     * Tampilkan halaman buat presensi baru.
      */
     public function create(Kelas $kelas)
     {
-        $existingPresensi = Presensi::where('id_user', Auth::id())
-            ->where('id_kelas', $kelas->id_kelas)
-            ->whereDate('created_at', today())
-            ->first();
+        // Cek apakah sudah presensi hari ini
+        $existingPresensi = Presensi::where('id_user', auth()->id())
+                                    ->where('id_kelas', $kelas->id_kelas)
+                                    ->whereDate('created_at', today())
+                                    ->first();
 
         if ($existingPresensi) {
-            return redirect()->route('presensi.edit', ['kelas' => $kelas, 'presensi' => $existingPresensi]);
+            return redirect()->route('kelas.show', $kelas->id_kelas)
+                            ->with('error', 'Anda sudah melakukan presensi hari ini.');
         }
 
-        return view('user.kelas.edit', [
-            'kelas' => $kelas,
-            'presensi' => new Presensi()
-        ]);
+        return view('presensi.create', compact('kelas'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan data presensi ke database.
      */
-    /**
- * Store a newly created resource in storage.
- */
-public function store(Request $request, Kelas $kelas)
+    public function store(Request $request, $id_kelas)
     {
+        $kelas = Kelas::findOrFail($id_kelas);
+
         $request->validate([
-            'status' => 'required|in:belum hadir,hadir,izin,sakit,alpha',
+            'status' => 'required|in:hadir,izin,sakit,alpha',
             'keterangan' => 'nullable|string|max:500',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $existingPresensi = Presensi::where('id_user', Auth::id())
-            ->where('id_kelas', $kelas->id_kelas)
-            ->whereDate('created_at', today())
-            ->first();
+        // Cek apakah sudah presensi hari ini
+        $existingPresensi = Presensi::where('id_user', auth()->id())
+                                    ->where('id_kelas', $kelas->id_kelas)
+                                    ->whereDate('created_at', today())
+                                    ->first();
 
         if ($existingPresensi) {
-            return redirect()->route('presensi.edit', ['kelas' => $kelas, 'presensi' => $existingPresensi])
-                ->with('error', 'Anda sudah melakukan presensi untuk kelas ini hari ini.');
+            return redirect()->route('kelas.show', $kelas->id_kelas)
+                            ->with('error', 'Anda sudah melakukan presensi hari ini.');
         }
 
-        $gambarPath = 'default.jpg';
+        // Handle upload gambar
+        $gambarPath = null;
         if ($request->hasFile('gambar')) {
             $gambarPath = $request->file('gambar')->store('presensi', 'public');
         }
 
+        // Simpan presensi
         Presensi::create([
-            'id_user' => Auth::id(),
+            'id_user' => auth()->id(),
             'id_kelas' => $kelas->id_kelas,
             'status' => $request->status,
             'keterangan' => $request->keterangan,
-            'gambar' => $gambarPath
+            'gambar' => $gambarPath,
+            'tanggal' => now(),
         ]);
 
-        return redirect()->route('kelas.show', $kelas)
-            ->with('success', 'Presensi berhasil disimpan.');
+        return redirect()->route('kelas.show', $kelas->id_kelas)
+                        ->with('success', 'Presensi berhasil disimpan!');
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan daftar presensi untuk kelas tertentu.
      */
-    public function show(Presensi $presensi)
+    public function index(Kelas $kelas)
     {
-        if ($presensi->id_user !== Auth::id() && !Auth::user()->hasRole('admin')) {
-            abort(403, 'Unauthorized action.');
-        }
+        $presensi = Presensi::where('id_kelas', $kelas->id_kelas)
+            ->with('user')
+            ->latest()
+            ->get();
 
-        return view('user.kelas.show', compact('presensi'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Kelas $kelas, Presensi $presensi)
-    {
-        if ($presensi->id_user !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        // Pastikan presensi terkait dengan kelas yang benar
-        if ($presensi->id_kelas !== $kelas->id_kelas) {
-            abort(404, 'Presensi tidak ditemukan untuk kelas ini.');
-        }
-
-        return view('user.kelas.edit', compact('presensi', 'kelas'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Kelas $kelas, Presensi $presensi)
-    {
-        if ($presensi->id_user !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        if ($presensi->id_kelas !== $kelas->id_kelas) {
-            abort(404, 'Presensi tidak ditemukan untuk kelas ini.');
-        }
-
-        $request->validate([
-            'status' => 'required|in:belum hadir,hadir,izin,sakit,alpha',
-            'keterangan' => 'nullable|string|max:500',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-
-        $data = [
-            'status' => $request->status,
-            'keterangan' => $request->keterangan,
-        ];
-
-        if ($request->hasFile('gambar')) {
-            if ($presensi->gambar !== 'default.jpg') {
-                Storage::disk('public')->delete($presensi->gambar);
-            }
-            $data['gambar'] = $request->file('gambar')->store('presensi', 'public');
-        }
-
-        $presensi->update($data);
-
-        return redirect()->route('kelas.show', $kelas)
-            ->with('success', 'Presensi berhasil diperbarui.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Presensi $presensi)
-    {
-        if ($presensi->id_user !== Auth::id() && !Auth::user()->hasRole('admin')) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        if ($presensi->gambar !== 'default.jpg') {
-            Storage::disk('public')->delete($presensi->gambar);
-        }
-
-        $presensi->delete();
-
-        return redirect()->route('presensi.index')
-            ->with('success', 'Presensi berhasil dihapus.');
-    }
-
-    /**
-     * Method untuk menampilkan form presensi berdasarkan kelas
-     */
-    public function createByKelas(Kelas $kelas)
-    {
-        return $this->create($kelas);
+        return view('presensi.index', compact('kelas', 'presensi'));
     }
 }

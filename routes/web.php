@@ -11,44 +11,68 @@ use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// Auth Routes
+// ==========================
+// AUTH ROUTES
+// ==========================
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Dashboard Routes untuk semua user yang login
+// ==========================
+// DASHBOARD & AUTH PROTECTED ROUTES
+// ==========================
 Route::middleware(['auth'])->group(function () {
+
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
-    // Kelas routes untuk user biasa - hanya bisa melihat, tidak bisa edit/update kelas
-    Route::resource('kelas', KelasController::class)->only(['index', 'show', 'store', 'destroy']);
-    
-    // Presensi routes - user bisa edit presensi mereka
-    Route::resource('presensi', PresensiController::class)->except(['create', 'store', 'edit', 'update']);
-    Route::get('kelas/{kelas}/presensi/create', [PresensiController::class, 'createByKelas'])->name('presensi.create-by-kelas');
-    Route::post('kelas/{kelas}/presensi', [PresensiController::class, 'store'])->name('presensi.store');
-    Route::get('kelas/{kelas}/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
-    Route::put('kelas/{kelas}/presensi/{presensi}', [PresensiController::class, 'update'])->name('presensi.update');
-    
-    // Notifikasi routes
-    Route::resource('notifikasi', NotifikasiController::class)->only(['index', 'destroy']);
-    Route::post('notifikasi/{notifikasi}/mark-as-read', [NotifikasiController::class, 'markAsRead'])->name('notifikasi.mark-as-read');
-    Route::post('notifikasi/{notifikasi}/update-checked', [NotifikasiController::class, 'updateChecked'])->name('notifikasi.update-checked');
-    Route::post('notifikasi/mark-all-read', [NotifikasiController::class, 'markAllAsRead'])->name('notifikasi.mark-all-read');
 
+    // ==========================
+    // KELAS ROUTES
+    // ==========================
+    Route::resource('kelas', KelasController::class);
+    Route::get('/kelas/{kelas}/anggota', [KelasController::class, 'getAnggota'])->name('kelas.anggota');
+
+    // User join kelas
+    Route::post('/kelas/join', [KelasController::class, 'join'])->name('kelas.join');
+
+    // ==========================
+    // PRESENSI ROUTES
+    // ==========================
+    Route::prefix('kelas/{kelas}')->group(function () {
+        Route::get('/presensi/create', [PresensiController::class, 'create'])->name('presensi.create');
+        Route::post('/presensi', [PresensiController::class, 'store'])->name('presensi.store');
+        Route::get('/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
+        Route::put('/presensi/{presensi}', [PresensiController::class, 'update'])->name('presensi.update');
+        Route::get('/presensi/detail/{date}', [PresensiController::class, 'detail'])->name('presensi.detail');
+    });
+
+    // ==========================
+    // NOTIFIKASI ROUTES
+    // ==========================
+    Route::prefix('notifikasi')->group(function () {
+        Route::get('/', [NotifikasiController::class, 'index'])->name('notifikasi.index');
+        Route::post('/mark-as-read/{id}', [NotifikasiController::class, 'markAsRead'])->name('notifikasi.markAsRead');
+        Route::post('/mark-all-read', [NotifikasiController::class, 'markAllAsRead'])->name('notifikasi.markAllAsRead');
+        Route::post('/mark-as-checked/{id}', [NotifikasiController::class, 'markAsChecked'])->name('notifikasi.markAsChecked');
+        Route::delete('/{id}', [NotifikasiController::class, 'destroy'])->name('notifikasi.destroy');
+        Route::post('/clear-all', [NotifikasiController::class, 'clearAll'])->name('notifikasi.clearAll');
+        Route::get('/get-notifications', [NotifikasiController::class, 'getNotifications'])->name('notifikasi.getNotifications');
+    });
+
+    // ==========================
+    // PROFIL ROUTES
+    // ==========================
     Route::resource('profil', ProfilController::class);
-    Route::view('/profiledit', 'user.profil.edit')->name('profil.edit');
+    Route::view('/profiledit', 'profil.edit')->name('profil.edit');
 });
 
-// Admin Only Routes
-Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/kelas', AdminKelasController::class);
-});
-
-// Redirect root to dashboard or login
+// ==========================
+// ROOT REDIRECT
+// ==========================
 Route::get('/', function () {
-    return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login.form');
+    return Auth::check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login.form');
 });

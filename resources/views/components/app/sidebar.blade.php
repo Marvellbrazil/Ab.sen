@@ -10,17 +10,10 @@
     </div>
     <div class="collapse navbar-collapse px-4 w-auto overflow-hidden" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            @if (auth()->user()->role == 'admin')
-            <x-side-navitem route="admin.dashboard" icon="bi bi-graph-up" itemname="Dashboard" />
-            <x-side-navitem route="admin.kelas.index" icon="bi bi-diagram-3-fill" itemname="Kelas" />
-            <x-side-navitem route="admin.notifikasi.index" icon="bi bi-bell-fill" itemname="Notifikasi" />
-            <x-side-navitem route="admin.profil.index" icon="bi bi-person-fill" itemname="Profil" />
-            @else
             <x-side-navitem route="dashboard" icon="bi bi-graph-up" itemname="Dashboard" />
             <x-side-navitem route="kelas.index" icon="bi bi-diagram-3-fill" itemname="Kelas" />
             <x-side-navitem route="notifikasi.index" icon="bi bi-bell-fill" itemname="Notifikasi" />
             <x-side-navitem route="profil.index" icon="bi bi-person-fill" itemname="Profil" />
-            @endif
         </ul>
     </div>
 </aside>

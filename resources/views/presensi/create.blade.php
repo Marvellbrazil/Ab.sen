@@ -2,6 +2,19 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <x-app.navbar />
         <div class="container-fluid py-4 px-5">
+
+            <!-- Debug Info -->
+            @if($errors->any())
+            <div class="alert alert-danger">
+                <strong>Validation Errors:</strong>
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <div class="row">
                 <div class="col-12">
                     <div class="card border shadow-xs mb-4">
@@ -18,12 +31,13 @@
                             </div>
                         </div>
                         <div class="card-body px-4 py-4">
-                            <form method="POST" action="{{ route('presensi.store', $kelas) }}"
+                            <form method="POST" action="{{ route('presensi.store', $kelas->id_kelas) }}"
                                 enctype="multipart/form-data">
                                 @csrf
 
-                                <div class="form-group">
-                                    <label for="status" class="form-control-label">Status Presensi</label>
+                                <div class="form-group mb-3">
+                                    <label for="status" class="form-control-label">Status Presensi <span
+                                            class="text-danger">*</span></label>
                                     <select class="form-control @error('status') is-invalid @enderror" id="status"
                                         name="status" required>
                                         <option value="">Pilih Status</option>
@@ -33,15 +47,13 @@
                                         </option>
                                         <option value="sakit" {{ old('status') == 'sakit' ? 'selected' : '' }}>Sakit
                                         </option>
-                                        <option value="alpha" {{ old('status') == 'alpha' ? 'selected' : '' }}>Alpha
-                                        </option>
                                     </select>
                                     @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mb-3">
                                     <label for="keterangan" class="form-control-label">Keterangan (Opsional)</label>
                                     <textarea class="form-control @error('keterangan') is-invalid @enderror"
                                         id="keterangan" name="keterangan" rows="3"
@@ -51,7 +63,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group mb-4">
                                     <label for="gambar" class="form-control-label">Gambar (Opsional)</label>
                                     <input type="file" class="form-control @error('gambar') is-invalid @enderror"
                                         id="gambar" name="gambar" accept="image/*">

@@ -30,34 +30,235 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        .card {
-            cursor: default;
+    .card {
+        cursor: default;
+    }
+
+    .border-top {
+        cursor: default;
+    }
+
+    .card-header {
+        cursor: default;
+    }
+
+    .card-body {
+        cursor: default;
+    }
+
+    .table {
+        cursor: default;
+    }
+
+    .table td,
+    .table th {
+        cursor: default;
+    }
+
+    .table tbody tr td:hover {
+        cursor: pointer;
+    }
+
+    :root {
+        --primary-color: #4e73df;
+        --secondary-color: #858796;
+        --success-color: #1cc88a;
+        --info-color: #36b9cc;
+        --warning-color: #f6c23e;
+        --danger-color: #e74a3b;
+        --light-color: #f8f9fc;
+        --dark-color: #5a5c69;
+        --border-radius: 0.5rem;
+        --box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    }
+
+    .card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        text-decoration: none;
+        color: inherit;
+        border: none;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+    }
+
+    .card-hyperlink {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+    }
+
+    .icon-md {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--border-radius);
+    }
+
+    /* Table Styles - No Vertical Overflow */
+    .table-responsive {
+        border-radius: var(--border-radius);
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .table thead th {
+        background-color: var(--light-color);
+        border-bottom: 2px solid #e3e6f0;
+        padding: 1rem 0.75rem;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--secondary-color);
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        transition: background-color 0.2s ease;
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fe;
+    }
+
+    .table tbody td {
+        padding: 1rem 0.75rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    /* Dropdown Styles - Normal & Clean */
+    .dropdown-toggle {
+        border: 1px solid #e3e6f0;
+        background: white;
+        color: var(--dark-color);
+        transition: all 0.3s ease;
+        border-radius: var(--border-radius);
+        padding: 0.375rem 0.75rem;
+    }
+
+    .dropdown-toggle:hover {
+        background-color: var(--light-color);
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
+
+    .dropdown-menu {
+        border: none;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
+        padding: 0.5rem 0;
+        min-width: 200px;
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border: none;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        font-size: 0.875rem;
+        color: var(--dark-color);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+    }
+
+    .dropdown-item i {
+        width: 20px;
+        margin-right: 0.75rem;
+        text-align: center;
+        font-size: 0.875rem;
+    }
+
+    /* Avatar & Badge Styles */
+    .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .avatar-sm {
+        width: 36px;
+        height: 36px;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.35em 0.65em;
+    }
+
+    .badge.border-success {
+        color: var(--success-color);
+        border-color: var(--success-color) !important;
+        background-color: rgba(28, 200, 138, 0.1);
+    }
+
+    /* Text Truncation */
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .text-truncate-1 {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Empty State */
+    .empty-state {
+        padding: 3rem 1rem;
+        text-align: center;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    /* Welcome Message */
+    .welcome-message {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dark-color);
+    }
+
+    @media (max-width: 768px) {
+        .welcome-message {
+            font-size: 1.25rem;
         }
 
-        .border-top {
-            cursor: default;
+        .table-responsive {
+            font-size: 0.875rem;
         }
 
-        .card-header {
-            cursor: default;
+        .table thead th,
+        .table tbody td {
+            padding: 0.75rem 0.5rem;
         }
-
-        .card-body {
-            cursor: default;
-        }
-
-        .table {
-            cursor: default;
-        }
-
-        .table td,
-        .table th {
-            cursor: default;
-        }
-
-        .table tbody tr td:hover {
-            cursor: pointer;
-        }
+    }
     </style>
 </head>
 

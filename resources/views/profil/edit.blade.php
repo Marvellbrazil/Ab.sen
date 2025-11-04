@@ -27,13 +27,9 @@
                                         <div class="col-auto">
                                             <div class="avatar avatar-xxl position-relative">
                                                 <img
-                                                    src="{{ ($user->profile_picture != "default.jpg") ? asset('storage/' . $user->profile_picture) : asset('assets/img/default.png') }}"
+                                                    src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
                                                     alt="Profile picture" class="w-100 border-radius-lg shadow-sm"
                                                     id="preview">
-                                                    <label for="profile_picture"
-                                                        class="btn btn-dark btn-sm mb-0 position-absolute bottom-0 end-0 cursor-pointer">
-                                                        <i class="fa fa-camera"></i>
-                                                    </label>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -41,8 +37,6 @@
                                             <p class="text-sm text-secondary mb-0">{{ $user->email }}</p>
                                             <input type="file" name="profile_picture" id="profile_picture"
                                                 class="d-none" accept="image/*">
-                                            <small class="text-muted">Click the camera icon to change profile
-                                                picture</small>
                                         </div>
                                     </div>
                                 </div>
@@ -151,40 +145,4 @@
             <x-app.footer />
         </div>
     </main>
-
-    <script>
-    // Preview image functionality
-    function setupImagePreview(inputId, previewId) {
-        const input = document.getElementById(inputId);
-        const preview = document.getElementById(previewId);
-
-        if (input && preview) {
-            input.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.src = e.target.result;
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-    }
-
-    // Setup both file inputs
-    setupImagePreview('profile_picture', 'preview');
-    setupImagePreview('profile_picture_input', 'preview');
-
-    // Auto-dismiss alerts after 5 seconds
-    document.addEventListener('DOMContentLoaded', function() {
-        const alerts = document.querySelectorAll('.alert');
-        alerts.forEach(function(alert) {
-            setTimeout(function() {
-                const bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            }, 5000);
-        });
-    });
-    </script>
 </x-app-layout>

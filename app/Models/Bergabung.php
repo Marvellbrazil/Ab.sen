@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Bergabung extends Model
 {
+    use HasFactory;
 
+    protected $table = 'bergabungs';
     protected $primaryKey = 'id_bergabung';
+
     protected $fillable = [
         'id_user',
         'id_kelas',
+        'status',
+        'created_at'
     ];
 
     public function user()

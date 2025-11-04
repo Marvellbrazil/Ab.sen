@@ -16,7 +16,8 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role'
+        'role',
+        'profile_picture'
     ];
 
     protected $hidden = [
@@ -30,16 +31,24 @@ class User extends Authenticatable
         return $this->hasMany(Notifikasi::class, 'id_user', 'id_user');
     }
 
-    // Relationship dengan Bergabung
+    // PERBAIKAN: Relationship dengan Bergabung (pivot table)
     public function bergabungs()
     {
         return $this->hasMany(Bergabung::class, 'id_user', 'id_user');
     }
 
-    // Relationship dengan Kelas melalui Bergabung
-    public function kelas()
+    // PERBAIKAN: Relationship dengan Kelas melalui Bergabung (many-to-many)
+    public function kelasDiikuti()
     {
-        return $this->belongsToMany(Kelas::class, 'bergabungs', 'id_user', 'id_kelas');
+        return $this->belongsToMany(Kelas::class, 'bergabungs', 'id_user', 'id_kelas')
+                    ->withPivot('created_at')
+                    ->withTimestamps();
+    }
+
+    // Relationship dengan Kelas yang dibuat (sebagai pengajar)
+    public function kelasDibuat()
+    {
+        return $this->hasMany(Kelas::class, 'id_user', 'id_user');
     }
 
     // Relationship dengan Presensi

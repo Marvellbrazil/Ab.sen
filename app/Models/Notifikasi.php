@@ -11,15 +11,17 @@ class Notifikasi extends Model
 
     protected $fillable = [
         'id_user',
-        'id_kelas', // tambahkan
+        'id_kelas', 
         'pesan_notifikasi',
         'tipe_notifikasi',
         'status',
-        'is_checked' // tambahkan
+        'is_checked'
     ];
 
     protected $casts = [
-        'is_checked' => 'boolean'
+        'is_checked' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
     ];
 
     /**
@@ -63,18 +65,18 @@ class Notifikasi extends Model
     }
 
     /**
-     * Accessor untuk format tanggal
+     * Mark as read
      */
-    public function getTanggalAttribute()
+    public function markAsRead()
     {
-        return $this->created_at->format('d/m/Y');
+        $this->update(['status' => 'read']);
     }
 
     /**
-     * Accessor untuk nama kelas
+     * Mark as checked
      */
-    public function getNamaKelasAttribute()
+    public function markAsChecked()
     {
-        return $this->kelas ? $this->kelas->nama_kelas : 'System';
+        $this->update(['is_checked' => true]);
     }
 }

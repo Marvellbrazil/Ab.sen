@@ -13,13 +13,6 @@
                                 </div>
                                 <div>
                                     @if($notifications->count() > 0)
-                                    <form action="{{ route('notifikasi.markAllAsRead') }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-dark mb-0 me-2">
-                                            <i class="fa-solid fa-check-double me-2"></i>Tandai Semua Dibaca
-                                        </button>
-                                    </form>
                                     <form action="{{ route('notifikasi.clearAll') }}" method="POST" class="d-inline">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-outline-danger mb-0"
@@ -67,38 +60,6 @@
                                                 <p class="text-xs text-muted mb-0">
                                                     {{ $notification->created_at->diffForHumans() }}
                                                 </p>
-                                            </div>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-dark dropdown-toggle"
-                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    @if($notification->status == 'unread')
-                                                    <li>
-                                                        <form
-                                                            action="{{ route('notifikasi.markAsRead', $notification->id_notifikasi) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="dropdown-item">
-                                                                <i class="fa-solid fa-check me-2"></i>Tandai Dibaca
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    @endif
-                                                    <li>
-                                                        <form
-                                                            action="{{ route('notifikasi.destroy', $notification->id_notifikasi) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item text-danger"
-                                                                onclick="return confirm('Hapus notifikasi ini?')">
-                                                                <i class="fa-solid fa-trash me-2"></i>Hapus
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>

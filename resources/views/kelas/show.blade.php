@@ -51,6 +51,11 @@
                                     <p class="text-sm text-muted mb-3">
                                         Kode Kelas: <b>{{ $kelas->kode_kelas }}</b>
                                     </p>
+                                    <p class="text-sm text-muted mb-3">
+                                        Tenggang Presensi
+                                        <b>{{ Carbon\Carbon::parse($kelas->waktu_mulai)->format('H:i') }}</b> sampai
+                                        <b>{{ Carbon\Carbon::parse($kelas->waktu_selesai)->format('H:i') }}</b>
+                                    </p>
                                     <h6 class="font-weight-semibold">Deskripsi:</h6>
                                     <p class="text-sm">
                                         {{ $kelas->deskripsi_kelas ?? 'Belum ada deskripsi tentang kelas ini.' }}</p>
@@ -196,6 +201,7 @@
             </div>
 
             <!-- Presensi -->
+            @if (Auth::user()->isAdmin())
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card border shadow-xs">
@@ -216,6 +222,7 @@
                                             <th class="text-secondary text-xs font-weight-semibold">Nama</th>
                                             <th class="text-secondary text-xs font-weight-semibold">Status</th>
                                             <th class="text-secondary text-xs font-weight-semibold">Keterangan</th>
+                                            <th class="text-secondary text-xs font-weight-semibold">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -231,6 +238,10 @@
                                                 </span>
                                             </td>
                                             <td>{{ $p->keterangan ?? '-' }}</td>
+                                            <td>
+                                                <a href="{{ route('presensi.show', [$kelas->id_kelas, $p->id_presensi]) }}"
+                                                    class="btn btn-sm btn-white mb-0">Detail</a>
+                                            </td>
                                         </tr>
                                         @empty
                                         <tr>
@@ -246,6 +257,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
         <x-app.footer />
     </main>

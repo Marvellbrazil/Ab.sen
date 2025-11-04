@@ -7,27 +7,42 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+public function index()
 {
+    $search = request('search'); // Ambil parameter pencarian
+
     if (auth()->user()->isAdmin()) {
         $kelas = Kelas::where('id_user', auth()->id())
                     ->with(['user', 'anggota'])
                     ->withCount('anggota')
+                    ->when($search, function($query, $search) {
+                        // Pencarian untuk admin: berdasarkan nama kelas
+                        return $query->where('nama_kelas', 'like', '%' . $search . '%');
+                    })
                     ->latest()
                     ->paginate(10);
     } else {
-        // PERBAIKAN: Specify table di whereHas
         $kelas = Kelas::whereHas('anggota', function($query) {
                     $query->where('bergabungs.id_user', auth()->id());
                 })
                 ->with(['user', 'anggota'])
                 ->withCount('anggota')
+                ->when($search, function($query, $search) {
+                    // Pencarian untuk user: berdasarkan nama kelas atau nama pemilik
+                    return $query->where(function($q) use ($search) {
+                        $q->where('nama_kelas', 'like', '%' . $search . '%')
+                          ->orWhereHas('user', function($q2) use ($search) {
+                              $q2->where('username', 'like', '%' . $search . '%');
+                          });
+                    });
+                })
                 ->latest()
                 ->paginate(10);
     }
@@ -111,15 +126,18 @@ class KelasController extends Controller
      */
 public function show($id)
 {
-    // Bypass route model binding, load manual
     $kelas = Kelas::with(['user', 'presensi.user'])
                 ->findOrFail($id);
 
-    // Load anggota dengan pagination
-    $anggota = $kelas->anggota()->paginate(10); // 10 item per page
+    $anggota = $kelas->anggota()->paginate(10);
     
-    // Set relation manually
     $kelas->setRelation('anggota', $anggota);
+
+    $isExists = $anggota->contains('id_user', Auth::user()->id_user);
+
+    if (!$isExists && Auth::user()->isUser()) {
+        abort(403, 'Tidak Diberikan Akses.');
+    }
 
     return view('kelas.show', compact('kelas'));
 }
@@ -215,14 +233,12 @@ public function show($id)
         $namaKelas = $kelas->nama_kelas;
         $idKelas = $kelas->id_kelas;
 
-        // Kirim notifikasi sebelum menghapus
         notifyKelas(
             $idKelas,
             "❌ Kelas '{$namaKelas}' telah dihapus oleh pengajar",
             'warning'
         );
 
-        // Notifikasi ke admin lain
         $otherAdmins = User::where('role', 'admin')
             ->where('id_user', '!=', auth()->id())
             ->get();

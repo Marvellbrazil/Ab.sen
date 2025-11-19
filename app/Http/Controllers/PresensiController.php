@@ -98,7 +98,6 @@ class PresensiController extends Controller
                                     ->where('id_kelas', $id_kelas)
                                     ->latest()
                                     ->get();
-
         return view('presensi.show', compact('presensi', 'riwayatPresensi', 'kelas'));
     }
 

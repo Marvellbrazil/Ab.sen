@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\User;
+use App\Models\Presensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -14,41 +15,47 @@ class KelasController extends Controller
     /**
      * Display a listing of the resource.
      */
-public function index()
-{
-    $search = request('search'); // Ambil parameter pencarian
-
-    if (auth()->user()->isAdmin()) {
-        $kelas = Kelas::where('id_user', auth()->id())
+    public function index()
+    {
+        $search = request('search');
+    
+        if (auth()->user()->isAdmin()) {
+            $kelas = Kelas::where('id_user', auth()->id())
+                        ->with(['user', 'anggota'])
+                        ->withCount('anggota')
+                        ->when($search, function($query, $search) {
+                            return $query->where('nama_kelas', 'like', '%' . $search . '%');
+                        })
+                        ->latest()
+                        ->paginate(10);
+        } else {
+            $kelas = Kelas::whereHas('anggota', function($query) {
+                        $query->where('bergabungs.id_user', auth()->id());
+                    })
                     ->with(['user', 'anggota'])
                     ->withCount('anggota')
                     ->when($search, function($query, $search) {
-                        // Pencarian untuk admin: berdasarkan nama kelas
-                        return $query->where('nama_kelas', 'like', '%' . $search . '%');
+                        return $query->where(function($q) use ($search) {
+                            $q->where('nama_kelas', 'like', '%' . $search . '%')
+                              ->orWhereHas('user', function($q2) use ($search) {
+                                  $q2->where('username', 'like', '%' . $search . '%');
+                              });
+                        });
                     })
                     ->latest()
                     ->paginate(10);
-    } else {
-        $kelas = Kelas::whereHas('anggota', function($query) {
-                    $query->where('bergabungs.id_user', auth()->id());
-                })
-                ->with(['user', 'anggota'])
-                ->withCount('anggota')
-                ->when($search, function($query, $search) {
-                    // Pencarian untuk user: berdasarkan nama kelas atau nama pemilik
-                    return $query->where(function($q) use ($search) {
-                        $q->where('nama_kelas', 'like', '%' . $search . '%')
-                          ->orWhereHas('user', function($q2) use ($search) {
-                              $q2->where('username', 'like', '%' . $search . '%');
-                          });
-                    });
-                })
-                ->latest()
-                ->paginate(10);
+        }
+    
+        $kelasIds = $kelas->pluck('id_kelas')->toArray();
+        
+        $presensiData = Presensi::where('id_user', auth()->id())
+                            ->whereIn('id_kelas', $kelasIds)
+                            ->whereDate('created_at', today())
+                            ->get()
+                            ->keyBy('id_kelas');
+    
+        return view('kelas.index', compact('kelas', 'presensiData'));
     }
-
-    return view('kelas.index', compact('kelas'));
-}
 
     /**
      * Show the form for creating a new resource.
@@ -84,18 +91,16 @@ public function index()
         $gambarKelas = $request->file('gambar_kelas')->store('kelas', 'public');
     }
 
-    // PASTIKAN SEMUA FIELD TERISI DENGAN VALUE
     $kelas = Kelas::create([
-        'nama_kelas' => $request->nama_kelas ?? 'Kelas Baru',
-        'deskripsi_kelas' => $request->deskripsi_kelas ?? 'Deskripsi kelas',
+        'nama_kelas' => $request->nama_kelas ?? null,
+        'deskripsi_kelas' => $request->deskripsi_kelas ?? null,
         'gambar_kelas' => $gambarKelas,
-        'waktu_mulai' => $request->waktu_mulai ?? '08:00',
-        'waktu_selesai' => $request->waktu_selesai ?? '10:00',
+        'waktu_mulai' => $request->waktu_mulai ?? null,
+        'waktu_selesai' => $request->waktu_selesai ?? null,
         'id_user' => auth()->id(),
         'kode_kelas' => Str::upper(Str::random(6)),
     ]);
 
-    // Notifikasi ke admin pembuat kelas
     notifyUser(
         auth()->id(),
         "✅ Kelas '{$kelas->nama_kelas}' berhasil dibuat. Kode kelas: {$kelas->kode_kelas}",

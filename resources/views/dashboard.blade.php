@@ -38,9 +38,9 @@
                                 </div>
                                 <div class="d-flex align-items-center">
                                     @if (Auth::user()->isAdmin())
-                                        <span class="text-sm text-muted">Total kelas yang dibuat</span>
+                                    <span class="text-sm text-muted">Total kelas yang dibuat</span>
                                     @elseif (Auth::user()->isUser())
-                                        <span class="text-sm text-muted">Total kelas yang tergabung</span>
+                                    <span class="text-sm text-muted">Total kelas yang tergabung</span>
                                     @endif
                                 </div>
                             </div>
@@ -131,9 +131,9 @@
                                 <div>
                                     <h6 class="font-weight-semibold text-lg mb-1">Daftar Kelas Terbaru</h6>
                                     @if (Auth::user()->isAdmin())
-                                        <p class="text-sm text-muted mb-0">Kelas yang baru saja Anda buat</p>
+                                    <p class="text-sm text-muted mb-0">Kelas yang baru saja Anda buat</p>
                                     @elseif (Auth::user()->isUser())
-                                        <p class="text-sm text-muted mb-0">Kelas yang baru saja Anda ikuti</p>
+                                    <p class="text-sm text-muted mb-0">Kelas yang baru saja Anda ikuti</p>
                                     @endif
                                 </div>
                                 <div class="mt-2 mt-sm-0">
@@ -151,10 +151,16 @@
                                 <table class="table align-items-center mb-0">
                                     <thead class="bg-gray-100">
                                         <tr>
+                                            @if (Auth::user()->isAdmin())
+                                            <th class="text-secondary text-xs font-weight-semibold ps-4">Nama Kelas</th>
+                                            <th class="text-secondary text-xs font-weight-semibold">Dibuat Pada</th>
+                                            <th class="text-secondary text-xs font-weight-semibold">Jumlah Anggota</th>
+                                            @else
                                             <th class="text-secondary text-xs font-weight-semibold ps-4">Nama Kelas</th>
                                             <th class="text-secondary text-xs font-weight-semibold">Bergabung Pada</th>
                                             <th class="text-secondary text-xs font-weight-semibold">Pemilik</th>
                                             <th class="text-secondary text-xs font-weight-semibold">Status</th>
+                                            @endif
                                             <th class="text-center text-secondary text-xs font-weight-semibold pe-4">
                                                 Aksi</th>
                                         </tr>
@@ -162,6 +168,9 @@
                                     <tbody>
                                         @if($kelas->count() > 0)
                                         @foreach($kelas->take(5) as $k)
+                                        @php
+                                        $existingPresensi = $presensiData[$k->id_kelas] ?? null;
+                                        @endphp
                                         <tr>
                                             <td class="ps-4">
                                                 <div class="d-flex align-items-center">
@@ -189,6 +198,19 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            @if (Auth::user()->isAdmin())
+                                            <td>
+                                                <p class="text-sm text-dark font-weight-semibold mb-0">
+                                                    {{ $k->created_at->format('d/m/Y') }}
+                                                </p>
+                                                <p class="text-xs text-muted mb-0">
+                                                    {{ $k->created_at->format('H:i') }}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                {{ $k->anggota->count() }}
+                                            </td>
+                                            @else
                                             <td>
                                                 <p class="text-sm text-dark font-weight-semibold mb-0">
                                                     {{ $k->created_at->format('d/m/Y') }}
@@ -209,10 +231,26 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="badge border border-success text-success bg-success">
-                                                    <i class="fa-solid fa-circle-check me-1"></i>Aktif
+                                                @if($existingPresensi)
+                                                @php
+                                                $badgeColor = match($existingPresensi->status) {
+                                                'hadir' => 'bg-primary text-success',
+                                                'izin' => 'bg-primary text-warning',
+                                                'sakit' => 'bg-primary text-dark',
+                                                'alpha' => 'bg-primary text-dark',
+                                                'terlambat' => 'bg-primary text-danger'
+                                                };
+                                                @endphp
+                                                <span class="badge badge-sm {{ $badgeColor }}">
+                                                    {{ ucfirst($existingPresensi->status) }}
                                                 </span>
+                                                @else
+                                                <span class="badge badge-sm bg-secondary text-danger">
+                                                    Belum Presensi
+                                                </span>
+                                                @endif
                                             </td>
+                                            @endif
                                             <td class="text-center pe-4">
                                                 <a href="{{ route('kelas.show', $k->id_kelas) }}"
                                                     class="btn btn-sm btn-outline-dark">
@@ -230,7 +268,8 @@
                                                     <h6 class="text-muted mb-2">Belum ada kelas yang dibuat</h6>
                                                     <p class="text-muted small mb-3">Buat kelas untuk melihat daftar
                                                         di sini</p>
-                                                    <a href="{{ route('kelas.create') }}" class="btn btn-sm btn-outline-dark">
+                                                    <a href="{{ route('kelas.create') }}"
+                                                        class="btn btn-sm btn-outline-dark">
                                                         <i class="fa-solid fa-plus me-1"></i>Buat Kelas
                                                     </a>
                                                 </div>

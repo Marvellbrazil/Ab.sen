@@ -260,9 +260,6 @@
                                         <th
                                             class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-status">
                                             Tenggang Absensi</th>
-                                        <th
-                                            class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-status">
-                                            Status</th>
                                         @elseif (Auth::user()->isUser())
                                         <th class="text-secondary text-xs font-weight-semibold opacity-7 col-nama">Nama
                                             Kelas</th>
@@ -286,10 +283,7 @@
                                 <tbody class="align-middle">
                                     @forelse ($kelas as $k)
                                     @php
-                                    $existingPresensi = \App\Models\Presensi::where('id_user', Auth::id())
-                                    ->where('id_kelas', $k->id_kelas)
-                                    ->whereDate('created_at', today())
-                                    ->first();
+                                    $existingPresensi = $presensiData[$k->id_kelas] ?? null;
                                     @endphp
 
                                     <tr>
@@ -312,7 +306,8 @@
                                                         title="Nama Kelas">{{ $k->nama_kelas }}
                                                     </h6>
                                                     <p class="text-sm text-secondary mb-0 text-truncate"
-                                                        title="Deskripsi Kelas">{{ $k->deskripsi_kelas }}</p>
+                                                        title="Deskripsi Kelas">
+                                                        {{ $k->deskripsi_kelas ?? 'Tidak ada deskripsi' }}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -331,11 +326,16 @@
                                         @elseif (Auth::user()->isUser())
                                         <td class="col-pemilik">
                                             <p class="text-sm text-dark font-weight-semibold mb-0 text-truncate"
-                                                title="Pemilik Kelas">{{ $k->user->username }}</p>
+                                                title="Pemilik Kelas">{{ $k->user->username ?? 'Tidak diketahui' }}</p>
                                         </td>
                                         <td class="align-middle text-center text-sm col-tanggal">
-                                            <span
-                                                class="text-secondary text-sm font-weight-normal">{{ $k->anggota->first()->created_at->format('d-m-Y') }}</span>
+                                            <span class="text-secondary text-sm font-weight-normal">
+                                                @if($k->anggota->first() && $k->anggota->first()->pivot)
+                                                {{ \Carbon\Carbon::parse($k->anggota->first()->pivot->created_at)->format('d-m-Y') }}
+                                                @else
+                                                {{ $k->created_at->format('d-m-Y') }}
+                                                @endif
+                                            </span>
                                         </td>
                                         @endif
 
@@ -345,11 +345,28 @@
                                                 - {{ Carbon\Carbon::parse($k->waktu_selesai)->format('H:i') }}</span>
                                         </td>
 
+                                        @if (Auth::user()->isUser())
                                         <td class="align-middle text-center col-status">
-                                            <span
-                                                class="badge badge-sm border border-success text-success bg-success"></span>
+                                            @if($existingPresensi)
+                                            @php
+                                            $badgeColor = match($existingPresensi->status) {
+                                            'hadir' => 'bg-primary text-success',
+                                            'izin' => 'bg-primary text-warning',
+                                            'sakit' => 'bg-primary text-dark',
+                                            'alpha' => 'bg-primary text-dark',
+                                            'terlambat' => 'bg-primary text-danger'
+                                            };
+                                            @endphp
+                                            <span class="badge badge-sm {{ $badgeColor }}">
+                                                {{ ucfirst($existingPresensi->status) }}
+                                            </span>
+                                            @else
+                                            <span class="badge badge-sm bg-secondary text-danger">
+                                                Belum Presensi
+                                            </span>
+                                            @endif
                                         </td>
-
+                                        @endif
                                         <td class="text-center align-middle col-aksi">
                                             <div class="dropdown">
                                                 <button class="three-dots" type="button" data-bs-toggle="dropdown"
@@ -362,7 +379,7 @@
                                                     <!-- Jika sudah ada presensi, tampilkan tombol edit presensi -->
                                                     <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('presensi.edit', ['kelas' => $k->id_kelas, 'presensi' => $existingPresensi->id_presensi]) }}">
+                                                            href="{{ route('presensi.edit', [$k->id_kelas, $existingPresensi->id_presensi]) }}">
                                                             <i class="fa-solid fa-edit me-2"></i>Edit Presensi
                                                         </a>
                                                     </li>
@@ -375,7 +392,7 @@
                                                     <!-- Jika belum ada presensi, tampilkan tombol isi presensi -->
                                                     <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('presensi.create', $k) }}">
+                                                            href="{{ route('presensi.create', $k->id_kelas) }}">
                                                             <i class="fa-solid fa-clipboard-check me-2"></i>Isi Presensi
                                                         </a>
                                                     </li>
@@ -427,7 +444,14 @@
                                         <td colspan="6" class="text-center py-4">
                                             <div class="d-flex flex-column align-items-center">
                                                 <i class="fa-solid fa-inbox fa-2x text-muted mb-2"></i>
-                                                <p class="text-muted mb-0">Belum ada kelas yang diikuti</p>
+                                                <p class="text-muted mb-0">
+                                                    @if(request('search'))
+                                                    Tidak ada kelas yang sesuai dengan pencarian
+                                                    "{{ request('search') }}"
+                                                    @else
+                                                    Belum ada kelas yang diikuti
+                                                    @endif
+                                                </p>
                                                 <small class="text-muted">Gabung kelas untuk melihat daftar di
                                                     sini</small>
                                             </div>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class PresensiService
 {
-    public function autoAlphaForMissedClasses()
+    public function autoAlphaForMissedClasses(): void
     {
         try {
             $today = now()->format('Y-m-d');
@@ -34,9 +34,9 @@ class PresensiService
         }
     }
 
-    private function checkAndCreateAlpha($user, $kelas, $date)
+    private function checkAndCreateAlpha(User $user, Kelas $kelas, string $date): void
     {
-        $existingPresensi = Presensi::where('id_user', $user->id)
+        $existingPresensi = Presensi::where('id_user', $user->id_user)
             ->where('id_kelas', $kelas->id_kelas)
             ->whereDate('created_at', $date)
             ->first();
@@ -48,7 +48,7 @@ class PresensiService
 
             if (now()->gt($waktuBatas)) {
                 Presensi::create([
-                    'id_user' => $user->id,
+                    'id_user' => $user->id_user,
                     'id_kelas' => $kelas->id_kelas,
                     'status' => 'alpha',
                     'keterangan' => 'Auto alpha - tidak melakukan presensi',
@@ -58,13 +58,13 @@ class PresensiService
                 ]);
                 
                 notifyUser(
-                    $user->id,
+                    $user->id_user,
                     "Anda mendapatkan alpha untuk kelas '{$kelas->nama_kelas}' karena tidak melakukan presensi",
                     'warning',
                     $kelas->id_kelas
                 );
                 
-                if ($kelas->user->id_user !== $user->id) {
+                if ($kelas->user->id_user !== $user->id_user) {
                     notifyUser(
                         $kelas->user->id_user,
                         "{$user->username} mendapatkan alpha untuk kelas '{$kelas->nama_kelas}'",
@@ -73,15 +73,12 @@ class PresensiService
                     );
                 }
                 
-                Log::info("Created alpha for user: {$user->id}, kelas: {$kelas->id_kelas}, date: {$date}");
+                Log::info("Created alpha for user: {$user->id_user}, kelas: {$kelas->id_kelas}, date: {$date}");
             }
         }
     }
 
-    /**
-     * Kirim notifikasi waktu mulai presensi (15 menit sebelum waktu mulai)
-     */
-    public function notifyUpcomingPresensi()
+    public function notifyUpcomingPresensi(): void
     {
         try {
             $now = now();
@@ -90,10 +87,9 @@ class PresensiService
             
             Log::info('Checking upcoming presensi notifications. Current: ' . $currentTime . ', 15min later: ' . $fifteenMinutesLater);
             
-            // Cari kelas yang waktu mulainya dalam 15 menit ke depan
             $kelasAkanMulai = Kelas::where('waktu_mulai', '>=', $currentTime)
                 ->where('waktu_mulai', '<=', $fifteenMinutesLater)
-                ->whereHas('anggota') // Hanya kelas yang memiliki anggota
+                ->whereHas('anggota')
                 ->get();
 
             foreach ($kelasAkanMulai as $kelas) {
@@ -112,17 +108,13 @@ class PresensiService
         }
     }
 
-    /**
-     * Kirim notifikasi waktu presensi dimulai
-     */
-    public function notifyPresensiStarted()
+    public function notifyPresensiStarted(): void
     {
         try {
             $currentTime = now()->format('H:i');
             
             Log::info('Checking presensi started notifications for: ' . $currentTime);
             
-            // Cari kelas yang waktu mulainya sama dengan waktu sekarang
             $kelasMulaiSekarang = Kelas::where('waktu_mulai', $currentTime)
                 ->whereHas('anggota')
                 ->get();
@@ -138,18 +130,16 @@ class PresensiService
         }
     }
 
-    private function sendPresensiReminder($kelas, $minutesLeft)
+    private function sendPresensiReminder(Kelas $kelas, int $minutesLeft): void
     {
         $message = "Presensi kelas '{$kelas->nama_kelas}' akan dimulai dalam {$minutesLeft} menit ({$kelas->waktu_mulai} - {$kelas->waktu_selesai})";
         
-        // Kirim ke semua anggota kelas
         notifyKelas(
             $kelas->id_kelas,
             $message,
             'info'
         );
         
-        // Kirim ke pengajar juga
         notifyUser(
             $kelas->user->id_user,
             $message,
@@ -160,18 +150,16 @@ class PresensiService
         Log::info("Sent presensi reminder for kelas: {$kelas->id_kelas}, {$minutesLeft} minutes left");
     }
 
-    private function sendPresensiStartedNotification($kelas)
+    private function sendPresensiStartedNotification(Kelas $kelas): void
     {
         $message = "⏰ Waktu presensi kelas '{$kelas->nama_kelas}' telah dimulai! Silakan lakukan presensi sebelum {$kelas->waktu_selesai}";
         
-        // Kirim ke semua anggota kelas
         notifyKelas(
             $kelas->id_kelas,
             $message,
             'warning'
         );
         
-        // Kirim ke pengajar juga
         notifyUser(
             $kelas->user->id_user,
             "Waktu presensi kelas '{$kelas->nama_kelas}' telah dimulai",
@@ -182,8 +170,7 @@ class PresensiService
         Log::info("Sent presensi started notification for kelas: {$kelas->id_kelas}");
     }
 
-    // Method untuk cek ketika user login
-    public function checkPreviousDaysPresensi(User $user)
+    public function checkPreviousDaysPresensi(User $user): void
     {
         try {
             for ($i = 1; $i <= 3; $i++) {
@@ -195,19 +182,19 @@ class PresensiService
         }
     }
 
-    private function checkUserPresensiForDate(User $user, $date)
+    private function checkUserPresensiForDate(User $user, string $date): void
     {
         $kelasUser = $user->kelasDiikuti;
 
         foreach ($kelasUser as $kelas) {
-            $existingPresensi = Presensi::where('id_user', $user->id)
+            $existingPresensi = Presensi::where('id_user', $user->id_user)
                 ->where('id_kelas', $kelas->id_kelas)
                 ->whereDate('created_at', $date)
                 ->first();
 
             if (!$existingPresensi) {
                 Presensi::create([
-                    'id_user' => $user->id,
+                    'id_user' => $user->id_user,
                     'id_kelas' => $kelas->id_kelas,
                     'status' => 'alpha',
                     'keterangan' => 'Auto alpha - tidak melakukan presensi',
@@ -217,21 +204,18 @@ class PresensiService
                 ]);
 
                 notifyUser(
-                    $user->id,
+                    $user->id_user,
                     "Anda mendapatkan alpha untuk kelas '{$kelas->nama_kelas}' tanggal " . Carbon::parse($date)->format('d/m/Y'),
                     'warning',
                     $kelas->id_kelas
                 );
                 
-                Log::info("Created alpha for user: {$user->id}, kelas: {$kelas->id_kelas}, date: {$date}");
+                Log::info("Created alpha for user: {$user->id_user}, kelas: {$kelas->id_kelas}, date: {$date}");
             }
         }
     }
 
-    /**
-     * Cek presensi terlambat dan update status
-     */
-    public function checkLatePresensi()
+    public function checkLatePresensi(): void
     {
         try {
             $today = now()->format('Y-m-d');

@@ -200,7 +200,7 @@
                             </p>
                             <a href="{{ route('kelas.create') }}">
                                 <button type="button"
-                                    class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0"">
+                                    class="btn btn-outline-white btn-blur btn-icon d-flex align-items-center mb-0">
                                 <span class=" btn-inner--icon">
                                     <i class="bi bi-plus-circle me-2 text-white"></i>
                                     </span>
@@ -246,220 +246,7 @@
                         </div>
 
                         <div class="table-container position-relative">
-                            <table class="table table-fixed align-items-center mb-0">
-                                <thead class="bg-gray-100">
-                                    <tr>
-                                        @if (Auth::user()->isAdmin())
-                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 col-nama">Nama
-                                            Kelas</th>
-                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 col-pemilik">
-                                            Jumlah User</th>
-                                        <th
-                                            class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-tanggal">
-                                            Dibuat Pada</th>
-                                        <th
-                                            class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-status">
-                                            Tenggang Absensi</th>
-                                        @elseif (Auth::user()->isUser())
-                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 col-nama">Nama
-                                            Kelas</th>
-                                        <th class="text-secondary text-xs font-weight-semibold opacity-7 col-pemilik">
-                                            Pemilik</th>
-                                        <th
-                                            class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-tanggal">
-                                            Bergabung Pada</th>
-                                        <th
-                                            class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-status">
-                                            Tenggang Absensi</th>
-                                        <th
-                                            class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-status">
-                                            Status</th>
-                                        @endif
-                                        <th
-                                            class="text-center text-secondary text-xs font-weight-semibold opacity-7 col-aksi">
-                                            Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="align-middle">
-                                    @forelse ($kelas as $k)
-                                    @php
-                                    $existingPresensi = $presensiData[$k->id_kelas] ?? null;
-                                    @endphp
-
-                                    <tr>
-                                        <td class="col-nama">
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex align-items-center">
-                                                    @if($k->gambar_kelas)
-                                                    <img src="{{ asset('storage/' . $k->gambar_kelas) }}"
-                                                        class="avatar avatar-sm rounded-circle me-2"
-                                                        alt="{{ $k->nama_kelas }}">
-                                                    @else
-                                                    <div
-                                                        class="avatar avatar-sm bg-primary rounded-circle me-2 d-flex align-items-center justify-content-center">
-                                                        <i class="fa-solid fa-book text-white text-xs"></i>
-                                                    </div>
-                                                    @endif
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center ms-1">
-                                                    <h6 class="mb-0 text-sm font-weight-semibold text-truncate"
-                                                        title="Nama Kelas">{{ $k->nama_kelas }}
-                                                    </h6>
-                                                    <p class="text-sm text-secondary mb-0 text-truncate"
-                                                        title="Deskripsi Kelas">
-                                                        {{ $k->deskripsi_kelas ?? 'Tidak ada deskripsi' }}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        @if (Auth::user()->isAdmin())
-                                        <td class="col-pemilik">
-                                            <p class="text-sm text-dark font-weight-semibold mb-0 text-truncate"
-                                                title="Jumlah User">
-                                                {{ $k->anggota_count ?? $k->anggota->count() }} User
-                                            </p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm col-tanggal">
-                                            <span
-                                                class="text-secondary text-sm font-weight-normal">{{ $k->created_at->format('d-m-Y') }}</span>
-                                        </td>
-                                        @elseif (Auth::user()->isUser())
-                                        <td class="col-pemilik">
-                                            <p class="text-sm text-dark font-weight-semibold mb-0 text-truncate"
-                                                title="Pemilik Kelas">{{ $k->user->username ?? 'Tidak diketahui' }}</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm col-tanggal">
-                                            <span class="text-secondary text-sm font-weight-normal">
-                                                @if($k->anggota->first() && $k->anggota->first()->pivot)
-                                                {{ \Carbon\Carbon::parse($k->anggota->first()->pivot->created_at)->format('d-m-Y') }}
-                                                @else
-                                                {{ $k->created_at->format('d-m-Y') }}
-                                                @endif
-                                            </span>
-                                        </td>
-                                        @endif
-
-                                        <td class="align-middle text-center col-status">
-                                            <span
-                                                class="text-secondary text-sm font-weight-normal">{{ Carbon\Carbon::parse($k->waktu_mulai)->format('H:i') }}
-                                                - {{ Carbon\Carbon::parse($k->waktu_selesai)->format('H:i') }}</span>
-                                        </td>
-
-                                        @if (Auth::user()->isUser())
-                                        <td class="align-middle text-center col-status">
-                                            @if($existingPresensi)
-                                            @php
-                                            $badgeColor = match($existingPresensi->status) {
-                                            'hadir' => 'bg-primary text-success',
-                                            'izin' => 'bg-primary text-warning',
-                                            'sakit' => 'bg-primary text-dark',
-                                            'alpha' => 'bg-primary text-dark',
-                                            'terlambat' => 'bg-primary text-danger'
-                                            };
-                                            @endphp
-                                            <span class="badge badge-sm {{ $badgeColor }}">
-                                                {{ ucfirst($existingPresensi->status) }}
-                                            </span>
-                                            @else
-                                            <span class="badge badge-sm bg-secondary text-danger">
-                                                Belum Presensi
-                                            </span>
-                                            @endif
-                                        </td>
-                                        @endif
-                                        <td class="text-center align-middle col-aksi">
-                                            <div class="dropdown">
-                                                <button class="three-dots" type="button" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    @if (Auth::user()->isUser())
-                                                    @if($existingPresensi)
-                                                    <!-- Jika sudah ada presensi, tampilkan tombol edit presensi -->
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('presensi.edit', [$k->id_kelas, $existingPresensi->id_presensi]) }}">
-                                                            <i class="fa-solid fa-edit me-2"></i>Edit Presensi
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <span class="dropdown-item-text text-sm text-success">
-                                                            <i class="fa-solid fa-check me-2"></i>Sudah Presensi
-                                                        </span>
-                                                    </li>
-                                                    @else
-                                                    <!-- Jika belum ada presensi, tampilkan tombol isi presensi -->
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('presensi.create', $k->id_kelas) }}">
-                                                            <i class="fa-solid fa-clipboard-check me-2"></i>Isi Presensi
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                    @endif
-
-                                                    <!-- Tombol lihat detail kelas -->
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('kelas.show', $k->id_kelas) }}">
-                                                            <i class="fa-solid fa-eye me-2"></i>Lihat Detail
-                                                        </a>
-                                                    </li>
-
-                                                    <!-- Hanya tampilkan edit/delete kelas untuk admin -->
-                                                    @auth
-                                                    @if(Auth::user()->isAdmin())
-                                                    <li>
-                                                        <hr class="dropdown-divider">
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('kelas.edit', $k->id_kelas) }}">
-                                                            <i class="fa-solid fa-edit me-2"></i>Edit Kelas
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <button type="button" class="dropdown-item text-danger"
-                                                            onclick="confirmDelete({{ $k->id_kelas }})">
-                                                            <i class="fa-solid fa-trash me-2"></i>Hapus Kelas
-                                                        </button>
-                                                    </li>
-                                                    @endif
-                                                    @endauth
-                                                </ul>
-                                            </div>
-
-                                            <!-- Form untuk delete (hidden) -->
-                                            <form id="delete-form-{{ $k->id_kelas }}"
-                                                action="{{ route('kelas.destroy', $k->id_kelas) }}" method="POST"
-                                                class="d-none">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center py-4">
-                                            <div class="d-flex flex-column align-items-center">
-                                                <i class="fa-solid fa-inbox fa-2x text-muted mb-2"></i>
-                                                <p class="text-muted mb-0">
-                                                    @if(request('search'))
-                                                    Tidak ada kelas yang sesuai dengan pencarian
-                                                    "{{ request('search') }}"
-                                                    @else
-                                                    Belum ada kelas yang diikuti
-                                                    @endif
-                                                </p>
-                                                <small class="text-muted">Gabung kelas untuk melihat daftar di
-                                                    sini</small>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                            <x-kelas.table :kelas="$kelas" :presensiData="$presensiData" :showTenggang="true" />
                         </div>
 
                         @if($kelas->hasPages())
@@ -537,7 +324,9 @@
     });
 
     // SweetAlert untuk gabung kelas
-    document.getElementById('btnGabungKelas').addEventListener('click', async function() {
+    const joinBtn = document.getElementById('btnGabungKelas');
+    if (joinBtn) {
+        joinBtn.addEventListener('click', async function() {
         const {
             value: kode
         } = await Swal.fire({
@@ -600,9 +389,9 @@
                     text: 'Terjadi kesalahan koneksi ke server.',
                     confirmButtonColor: '#000'
                 });
-            }
         }
     });
+}
 
     // Fungsi confirm delete
     function confirmDelete(kelasId) {

@@ -8,15 +8,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class PresensiController extends Controller
 {
-    /**
-     * Tampilkan halaman buat presensi baru.
-     */
-    public function create(Kelas $kelas)
+    public function create(Kelas $kelas): View|RedirectResponse
     {
-        $existingPresensi = Presensi::where('id_user', auth()->id())
+        $existingPresensi = Presensi::where('id_user', Auth::id())
                                     ->where('id_kelas', $kelas->id_kelas)
                                     ->whereDate('created_at', today())
                                     ->first();
@@ -29,21 +28,17 @@ class PresensiController extends Controller
         return view('presensi.create', compact('kelas'));
     }
 
-    /**
-     * Simpan data presensi ke database.
-     */
-    public function store(Request $request, $id_kelas)
+    public function store(Request $request, Kelas $kelas): RedirectResponse
     {
-        $kelas = Kelas::findOrFail($id_kelas);
-        $status = $request->status;
-
         $request->validate([
             'status' => 'required|in:hadir,izin,sakit,alpha',
             'keterangan' => 'nullable|string|max:500',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $existingPresensi = Presensi::where('id_user', auth()->id())
+        $status = $request->status;
+
+        $existingPresensi = Presensi::where('id_user', Auth::id())
                                     ->where('id_kelas', $kelas->id_kelas)
                                     ->whereDate('created_at', today())
                                     ->first();
@@ -63,7 +58,7 @@ class PresensiController extends Controller
         }
 
         Presensi::create([
-            'id_user' => auth()->id(),
+            'id_user' => Auth::id(),
             'id_kelas' => $kelas->id_kelas,
             'status' => $status,
             'keterangan' => $request->keterangan,
@@ -75,15 +70,8 @@ class PresensiController extends Controller
                         ->with('success', 'Presensi berhasil disimpan!');
     }
 
-    public function show($id_kelas, $id_presensi)
+    public function show(Kelas $kelas, Presensi $presensi): View
     {
-        $kelas = Kelas::findOrFail($id_kelas);
-
-        $presensi = Presensi::with(['user', 'kelas.user'])
-                            ->where('id_presensi', $id_presensi)
-                            ->where('id_kelas', $id_kelas) // Pastikan presensi ini dari kelas yang dimaksud
-                            ->firstOrFail();
-
         if (Auth::user()->isUser()) {
             if ($presensi->id_user !== Auth::id()) {
                 abort(403, 'Anda hanya bisa melihat presensi sendiri.');
@@ -95,44 +83,34 @@ class PresensiController extends Controller
         }
 
         $riwayatPresensi = Presensi::where('id_user', $presensi->id_user)
-                                    ->where('id_kelas', $id_kelas)
+                                    ->where('id_kelas', $kelas->id_kelas)
                                     ->latest()
                                     ->get();
+
         return view('presensi.show', compact('presensi', 'riwayatPresensi', 'kelas'));
     }
 
-    /**
-     * Tampilkan halaman edit presensi.
-     */
-    public function edit($id_presensi)
+    public function edit(Kelas $kelas, Presensi $presensi): View|RedirectResponse
     {
-        // Authorization: hanya user yang membuat presensi yang bisa edit
-        $presensi = Presensi::findOrFail($id_presensi);
-        if (!Auth::id()) {
+        if ($presensi->id_user !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
-        // Cek apakah presensi masih bisa diedit (misal: maksimal 1 jam setelah dibuat)
         $createdTime = $presensi->created_at;
         $currentTime = now();
         $diffInHours = $createdTime->diffInHours($currentTime);
 
         if ($diffInHours > 24) {
-            return redirect()->route('kelas.show', $presensi->id_kelas)
+            return redirect()->route('kelas.show', $kelas->id_kelas)
                             ->with('error', 'Presensi sudah tidak dapat diubah (lebih dari 24 jam).');
         }
-
-        $kelas = $presensi->kelas;
 
         return view('presensi.edit', compact('presensi', 'kelas'));
     }
 
-    /**
-     * Update data presensi.
-     */
-    public function update(Request $request, Presensi $presensi)
+    public function update(Request $request, Kelas $kelas, Presensi $presensi): RedirectResponse
     {
-        if ($presensi->id_user !== auth()->id()) {
+        if ($presensi->id_user !== Auth::id()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -145,13 +123,13 @@ class PresensiController extends Controller
         $gambarPath = $presensi->gambar;
 
         if ($request->has('hapus_gambar') && $request->hapus_gambar == '1') {
-            if ($gambarPath && Storage::exists($gambarPath)) {
-                Storage::delete($gambarPath);
+            if ($gambarPath && Storage::disk('public')->exists($gambarPath)) {
+                Storage::disk('public')->delete($gambarPath);
             }
             $gambarPath = null;
         } elseif ($request->hasFile('gambar')) {
-            if ($gambarPath && Storage::exists($gambarPath)) {
-                Storage::delete($gambarPath);
+            if ($gambarPath && Storage::disk('public')->exists($gambarPath)) {
+                Storage::disk('public')->delete($gambarPath);
             }
             $gambarPath = $request->file('gambar')->store('presensi', 'public');
         }
@@ -162,14 +140,11 @@ class PresensiController extends Controller
             'gambar' => $gambarPath,
         ]);
 
-        return redirect()->route('kelas.show', $presensi->id_kelas)
+        return redirect()->route('kelas.show', $kelas->id_kelas)
                         ->with('success', 'Presensi berhasil diperbarui!');
     }
 
-    /**
-     * Menampilkan daftar presensi untuk kelas tertentu.
-     */
-    public function index(Kelas $kelas)
+    public function index(Kelas $kelas): View
     {
         $presensi = Presensi::where('id_kelas', $kelas->id_kelas)
             ->with('user')

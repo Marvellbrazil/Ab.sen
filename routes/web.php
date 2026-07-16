@@ -46,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/presensi/{presensi}', [PresensiController::class, 'show'])->name('presensi.show');
         Route::get('/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
         Route::put('/presensi/{presensi}', [PresensiController::class, 'update'])->name('presensi.update');
-        Route::get('/presensi/detail/{date}', [PresensiController::class, 'detail'])->name('presensi.detail');
     });
 
     // ==========================

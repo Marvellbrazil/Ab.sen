@@ -8,24 +8,24 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Services\PresensiService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class AuthController extends Controller
 {
-    protected $presensiService;
+    protected PresensiService $presensiService;
 
     public function __construct(PresensiService $presensiService)
     {
         $this->presensiService = $presensiService;
     }
 
-    // Show Login Form
-    public function showLoginForm()
+    public function showLoginForm(): View
     {
         return view('auth.login');
     }
 
-    // Process Login
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -33,7 +33,10 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $this->presensiService->checkPreviousDaysPresensi(Auth::user());
+            $user = Auth::user();
+            if ($user instanceof User) {
+                $this->presensiService->checkPreviousDaysPresensi($user);
+            }
             
             return redirect()->route('dashboard');
         }
@@ -41,14 +44,12 @@ class AuthController extends Controller
         return back()->with('error', 'Email atau password salah.');
     }
 
-    // Show Register Form
-    public function showRegisterForm()
+    public function showRegisterForm(): View
     {
         return view('auth.register');
     }
 
-    // Process Register
-    public function register(Request $request)
+    public function register(Request $request): RedirectResponse
     {
         $request->validate([
             'username' => 'required|string|max:255',
@@ -69,9 +70,8 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        // Kirim notifikasi welcome
         notifyUser(
-            $user->id,
+            $user->id_user,
             "Selamat datang di sistem presensi! Akun Anda berhasil dibuat.",
             'success'
         );
@@ -79,8 +79,7 @@ class AuthController extends Controller
         return redirect()->route('dashboard');
     }
 
-    // Logout
-    public function logout(Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
 

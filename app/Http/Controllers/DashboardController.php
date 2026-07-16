@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\Presensi;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $user = auth()->user();
         
@@ -41,6 +42,6 @@ class DashboardController extends Controller
                             ->get()
                             ->keyBy('id_kelas');
 
-        return view('dashboard', compact('kelas', 'presensi'));
+        return view('dashboard', compact('kelas', 'presensi', 'presensiData'));
     }
 }

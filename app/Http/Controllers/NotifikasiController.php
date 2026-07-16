@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 
 class NotifikasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
         $notifications = Notifikasi::with('kelas')
             ->where('id_user', Auth::id())
@@ -21,10 +21,7 @@ class NotifikasiController extends Controller
         return view('notifikasi.index', compact('notifications'));
     }
 
-    /**
-     * Mark notification as read
-     */
-    public function markAsRead($id)
+    public function markAsRead($id): JsonResponse
     {
         $notification = Notifikasi::where('id_notifikasi', $id)
                                 ->where('id_user', Auth::id())
@@ -35,20 +32,14 @@ class NotifikasiController extends Controller
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Mark all notifications as read
-     */
-    public function markAllAsRead()
+    public function markAllAsRead(): RedirectResponse
     {
         markAllNotificationsAsRead(Auth::id());
 
         return redirect()->back()->with('success', 'Semua notifikasi telah ditandai sebagai dibaca.');
     }
 
-    /**
-     * Mark notification as checked
-     */
-    public function markAsChecked($id)
+    public function markAsChecked($id): JsonResponse
     {
         $notification = Notifikasi::where('id_notifikasi', $id)
                                 ->where('id_user', Auth::id())
@@ -59,10 +50,7 @@ class NotifikasiController extends Controller
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Delete notification
-     */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $notification = Notifikasi::where('id_notifikasi', $id)
                                 ->where('id_user', Auth::id())
@@ -73,20 +61,14 @@ class NotifikasiController extends Controller
         return redirect()->back()->with('success', 'Notifikasi berhasil dihapus.');
     }
 
-    /**
-     * Clear all notifications
-     */
-    public function clearAll()
+    public function clearAll(): RedirectResponse
     {
         Notifikasi::where('id_user', Auth::id())->delete();
 
         return redirect()->route('notifikasi.index')->with('success', 'Semua notifikasi berhasil dihapus.');
     }
 
-    /**
-     * Get notifications for AJAX (for navbar)
-     */
-    public function getNotifications()
+    public function getNotifications(): JsonResponse
     {
         $notifications = getUserNotifications(Auth::id(), 5);
         $unreadCount = getUnreadNotificationsCount(Auth::id());

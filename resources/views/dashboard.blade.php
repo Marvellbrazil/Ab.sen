@@ -147,152 +147,7 @@
                         </div>
 
                         <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table align-items-center mb-0">
-                                    <thead class="bg-gray-100">
-                                        <tr>
-                                            @if (Auth::user()->isAdmin())
-                                            <th class="text-secondary text-xs font-weight-semibold ps-4">Nama Kelas</th>
-                                            <th class="text-secondary text-xs font-weight-semibold">Dibuat Pada</th>
-                                            <th class="text-secondary text-xs font-weight-semibold">Jumlah Anggota</th>
-                                            @else
-                                            <th class="text-secondary text-xs font-weight-semibold ps-4">Nama Kelas</th>
-                                            <th class="text-secondary text-xs font-weight-semibold">Bergabung Pada</th>
-                                            <th class="text-secondary text-xs font-weight-semibold">Pemilik</th>
-                                            <th class="text-secondary text-xs font-weight-semibold">Status</th>
-                                            @endif
-                                            <th class="text-center text-secondary text-xs font-weight-semibold pe-4">
-                                                Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if($kelas->count() > 0)
-                                        @foreach($kelas->take(5) as $k)
-                                        @php
-                                        $existingPresensi = $presensiData[$k->id_kelas] ?? null;
-                                        @endphp
-                                        <tr>
-                                            <td class="ps-4">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-3">
-                                                        @if($k->gambar_kelas)
-                                                        <img src="{{ asset('storage/' . $k->gambar_kelas) }}"
-                                                            class="avatar avatar-sm rounded-circle"
-                                                            alt="{{ $k->nama_kelas }}">
-                                                        @else
-                                                        <div
-                                                            class="avatar avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center">
-                                                            <i class="fa-solid fa-book text-white text-xs"></i>
-                                                        </div>
-                                                        @endif
-                                                    </div>
-                                                    <div>
-                                                        <h6 class="text-sm font-weight-semibold mb-0 text-truncate-1"
-                                                            style="max-width: 200px;">
-                                                            {{ $k->nama_kelas }}
-                                                        </h6>
-                                                        <p class="text-sm text-secondary mb-0 text-truncate-1"
-                                                            style="max-width: 200px;">
-                                                            {{ $k->deskripsi_kelas ?: 'Tidak ada deskripsi' }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            @if (Auth::user()->isAdmin())
-                                            <td>
-                                                <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                    {{ $k->created_at->format('d/m/Y') }}
-                                                </p>
-                                                <p class="text-xs text-muted mb-0">
-                                                    {{ $k->created_at->format('H:i') }}
-                                                </p>
-                                            </td>
-                                            <td>
-                                                {{ $k->anggota->count() }}
-                                            </td>
-                                            @else
-                                            <td>
-                                                <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                    {{ $k->created_at->format('d/m/Y') }}
-                                                </p>
-                                                <p class="text-xs text-muted mb-0">
-                                                    {{ $k->created_at->format('H:i') }}
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div
-                                                        class="avatar avatar-xs bg-light rounded-circle me-2 d-flex align-items-center justify-content-center">
-                                                        <i class="fa-solid fa-user text-dark text-xs"></i>
-                                                    </div>
-                                                    <p class="text-sm text-dark font-weight-semibold mb-0">
-                                                        {{ $k->user->username }}
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                @if($existingPresensi)
-                                                @php
-                                                $badgeColor = match($existingPresensi->status) {
-                                                'hadir' => 'bg-primary text-success',
-                                                'izin' => 'bg-primary text-warning',
-                                                'sakit' => 'bg-primary text-dark',
-                                                'alpha' => 'bg-primary text-dark',
-                                                'terlambat' => 'bg-primary text-danger'
-                                                };
-                                                @endphp
-                                                <span class="badge badge-sm {{ $badgeColor }}">
-                                                    {{ ucfirst($existingPresensi->status) }}
-                                                </span>
-                                                @else
-                                                <span class="badge badge-sm bg-secondary text-danger">
-                                                    Belum Presensi
-                                                </span>
-                                                @endif
-                                            </td>
-                                            @endif
-                                            <td class="text-center pe-4">
-                                                <a href="{{ route('kelas.show', $k->id_kelas) }}"
-                                                    class="btn btn-sm btn-outline-dark">
-                                                    <i class="fa-solid fa-eye me-1"></i>Selengkapnya
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        @else
-                                        <tr>
-                                            @if (Auth::user()->isAdmin())
-                                            <td colspan="5" class="text-center py-5">
-                                                <div class="empty-state">
-                                                    <i class="fa-solid fa-inbox text-muted"></i>
-                                                    <h6 class="text-muted mb-2">Belum ada kelas yang dibuat</h6>
-                                                    <p class="text-muted small mb-3">Buat kelas untuk melihat daftar
-                                                        di sini</p>
-                                                    <a href="{{ route('kelas.create') }}"
-                                                        class="btn btn-sm btn-outline-dark">
-                                                        <i class="fa-solid fa-plus me-1"></i>Buat Kelas
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            @elseif (Auth::user()->isUser())
-                                            <td colspan="5" class="text-center py-5">
-                                                <div class="empty-state">
-                                                    <i class="fa-solid fa-inbox text-muted"></i>
-                                                    <h6 class="text-muted mb-2">Belum ada kelas yang diikuti</h6>
-                                                    <p class="text-muted small mb-3">Gabung kelas untuk melihat daftar
-                                                        di sini</p>
-                                                    <button class="btn btn-sm btn-outline-dark"
-                                                        id="btnGabungKelasEmpty">
-                                                        <i class="fa-solid fa-plus me-1"></i>Gabung Kelas
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            @endif
-                                        </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
+                            <x-kelas.table :kelas="$kelas" :presensiData="$presensiData" />
                         </div>
                     </div>
                 </div>
@@ -373,7 +228,10 @@
         };
 
         // Attach event to both buttons
-        document.getElementById('btnGabungKelas').addEventListener('click', joinClass);
+        const joinBtn = document.getElementById('btnGabungKelas');
+        if (joinBtn) {
+            joinBtn.addEventListener('click', joinClass);
+        }
         const emptyBtn = document.getElementById('btnGabungKelasEmpty');
         if (emptyBtn) {
             emptyBtn.addEventListener('click', joinClass);

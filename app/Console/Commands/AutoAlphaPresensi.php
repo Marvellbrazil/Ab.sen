@@ -10,7 +10,7 @@ class AutoAlphaPresensi extends Command
     protected $signature = 'presensi:auto-alpha';
     protected $description = 'Automatically create alpha for missed presensi';
 
-    public function handle(PresensiService $presensiService)
+    public function handle(PresensiService $presensiService): void
     {
         $this->info('Starting auto alpha presensi...');
         $presensiService->autoAlphaForMissedClasses();

@@ -24,12 +24,12 @@ class Reminder extends Command
     /**
      * Jalankan command.
      */
-    public function handle()
+    public function handle(): void
     {
         $kelasList = Kelas::all();
 
         foreach ($kelasList as $kelas) {
-            notifyKelas($kelas->id, "Jangan lupa untuk absen pada {$kelas->nama}!");
+            notifyKelas($kelas->id_kelas, "Jangan lupa untuk absen pada {$kelas->nama_kelas}!");
         }
 
         $this->info('Notifikasi pengingat presensi berhasil dikirim.');

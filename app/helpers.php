@@ -2,9 +2,11 @@
 
 use App\Models\Notifikasi;
 use App\Models\Bergabung;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists('notifyKelas')) {
-    function notifyKelas($idKelas, $pesan, $tipeNotifikasi = 'info', $excludeAdmin = true)
+    function notifyKelas(int $idKelas, string $pesan, string $tipeNotifikasi = 'info', bool $excludeAdmin = true): int
     {
         try {
             $query = Bergabung::where('id_kelas', $idKelas);
@@ -38,14 +40,14 @@ if (!function_exists('notifyKelas')) {
             return count($notifications);
             
         } catch (\Exception $e) {
-            \Log::error('Error in notifyKelas: ' . $e->getMessage());
+            Log::error('Error in notifyKelas: ' . $e->getMessage());
             return 0;
         }
     }
 }
 
 if (!function_exists('notifyUser')) {
-    function notifyUser($userId, $pesan, $tipeNotifikasi = 'info', $kelasId = null)
+    function notifyUser(int $userId, string $pesan, string $tipeNotifikasi = 'info', ?int $kelasId = null): bool
     {
         try {
             Notifikasi::create([
@@ -60,15 +62,14 @@ if (!function_exists('notifyUser')) {
             return true;
             
         } catch (\Exception $e) {
-            \Log::error('Error in notifyUser: ' . $e->getMessage());
+            Log::error('Error in notifyUser: ' . $e->getMessage());
             return false;
         }
     }
 }
 
-
 if (!function_exists('getUnreadNotificationsCount')) {
-    function getUnreadNotificationsCount($userId)
+    function getUnreadNotificationsCount(int $userId): int
     {
         return Notifikasi::where('id_user', $userId)
                         ->where('status', 'unread')
@@ -77,7 +78,7 @@ if (!function_exists('getUnreadNotificationsCount')) {
 }
 
 if (!function_exists('getUserNotifications')) {
-    function getUserNotifications($userId, $limit = 10)
+    function getUserNotifications(int $userId, int $limit = 10): Collection
     {
         return Notifikasi::with('kelas')
                         ->where('id_user', $userId)
@@ -88,7 +89,7 @@ if (!function_exists('getUserNotifications')) {
 }
 
 if (!function_exists('markNotificationsAsRead')) {
-    function markNotificationsAsRead($userId, $notificationIds = [])
+    function markNotificationsAsRead(int $userId, array $notificationIds = []): int
     {
         $query = Notifikasi::where('id_user', $userId)
                           ->where('status', 'unread');
@@ -102,7 +103,7 @@ if (!function_exists('markNotificationsAsRead')) {
 }
 
 if (!function_exists('markAllNotificationsAsRead')) {
-    function markAllNotificationsAsRead($userId)
+    function markAllNotificationsAsRead(int $userId): int
     {
         return Notifikasi::where('id_user', $userId)
                         ->where('status', 'unread')
@@ -111,7 +112,7 @@ if (!function_exists('markAllNotificationsAsRead')) {
 }
 
 if (!function_exists('deleteNotification')) {
-    function deleteNotification($notificationId, $userId)
+    function deleteNotification(int $notificationId, int $userId): mixed
     {
         return Notifikasi::where('id_notifikasi', $notificationId)
                         ->where('id_user', $userId)
@@ -120,7 +121,7 @@ if (!function_exists('deleteNotification')) {
 }
 
 if (!function_exists('clearAllNotifications')) {
-    function clearAllNotifications($userId)
+    function clearAllNotifications(int $userId): mixed
     {
         return Notifikasi::where('id_user', $userId)->delete();
     }

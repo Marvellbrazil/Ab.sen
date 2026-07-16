@@ -10,7 +10,7 @@ class NotifyPresensiTime extends Command
     protected $signature = 'presensi:notify-time';
     protected $description = 'Send notifications for upcoming and started presensi';
 
-    public function handle(PresensiService $presensiService)
+    public function handle(PresensiService $presensiService): void
     {
         $this->info('Checking presensi time notifications...');
         
